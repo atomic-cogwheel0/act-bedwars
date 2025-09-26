@@ -63,9 +63,6 @@ scoreboard objectives add bedBroken dummy
 scoreboard players set Map: GameBar -1
 scoreboard players set Map: wins -1
 
-scoreboard players set Hardcore: GameBar -1
-scoreboard players set Hardcore: wins -1
-
 scoreboard players set map game 0
 scoreboard players set gameOn game 0
 scoreboard players set safeMode game 1
@@ -73,7 +70,7 @@ scoreboard players set hardcore game 0
 scoreboard players set firstDiamond game 90
 scoreboard players set firstEmerald game 180
 
-scoreboard objectives setdisplay sidebar wins
+scoreboard objectives setdisplay sidebar GameBar
 
 say "scores done"
 
@@ -83,7 +80,6 @@ team add green
 team add blue
 team add white
 team add CurrentMap
-team add HardcoreOn
 team add border
 team add players
 say "teams done"
@@ -99,11 +95,8 @@ team modify red friendlyFire false
 team modify yellow friendlyFire false
 team modify green friendlyFire false
 
-team modify CurrentMap suffix " None"
+team modify CurrentMap suffix ": None"
 team join CurrentMap Map:
-
-team modify HardcoreOn suffix " Off"
-team join HardcoreOn Hardcore:
 
 team modify border prefix "Border "
 team join border in:
@@ -122,22 +115,17 @@ say "teams set"
 
 kill @e[type=!player]
 
-place template bw:lobby1 -16 -40 -11
-place template bw:lobby2 12 -40 -11
+place template bw:lobby1 -15 -40 -11
+place template bw:lobby2 13 -40 -11
 
 execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
-fill -121 0 -121 120 0 120 barrier
-fill -121 1 -120 -121 16 119 barrier
-fill -120 1 -121 119 16 -121 barrier
-fill 120 1 119 120 16 -120 barrier
-fill 119 1 120 -120 16 120 barrier
+gamerule commandModificationBlockLimit 10000000
 
 forceload add -10 -10 10 10
 
 gamerule announceAdvancements false
 gamerule commandBlockOutput false
-gamerule commandModificationBlockLimit 10000000
 gamerule doDaylightCycle false
 gamerule doImmediateRespawn true
 gamerule doInsomnia false
@@ -156,3 +144,5 @@ data modify storage world created set value 1
 say "world setup done"
 
 function bw:1s
+
+schedule function bw:barrier 1s
