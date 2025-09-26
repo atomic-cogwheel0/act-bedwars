@@ -1,0 +1,1 @@
+execute unless data storage world created run function bw:init

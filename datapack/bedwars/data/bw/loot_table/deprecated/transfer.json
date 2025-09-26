@@ -1,0 +1,96 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:iron_ingot",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "type": "minecraft:score",
+                                "target": {
+                                    "type": "minecraft:context",
+                                    "target": "this"
+                                },
+                                "score": "ironToGive"
+                            },
+                            "add": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:diamond",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "type": "minecraft:score",
+                                "target": {
+                                    "type": "minecraft:context",
+                                    "target": "this"
+                                },
+                                "score": "diamondToGive"
+                            },
+                            "add": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:emerald",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "type": "minecraft:score",
+                                "target": {
+                                    "type": "minecraft:context",
+                                    "target": "this"
+                                },
+                                "score": "emeraldToGive"
+                            },
+                            "add": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "minecraft:item",
+                    "name": "minecraft:turtle_scute",
+                    "functions": [
+                        {
+                            "function": "minecraft:set_count",
+                            "count": {
+                                "type": "minecraft:score",
+                                "target": {
+                                    "type": "minecraft:context",
+                                    "target": "this"
+                                },
+                                "score": "scuteToGive"
+                            },
+                            "add": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,185 @@
+{
+  "type": "minecraft:vault",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_boots",
+          "weight": 50,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 14,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_boots",
+          "weight": 42,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 7,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_boots",
+          "weight": 8,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 25,
+              "conditions": []
+            }
+          ]
+        }
+      ],
+      "functions": []
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_chestplate",
+          "weight": 50,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 14,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_chestplate",
+          "weight": 42,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 7,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_chestplate",
+          "weight": 8,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 25,
+              "conditions": []
+            }
+          ]
+        }
+      ],
+      "functions": []
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_helmet",
+          "weight": 50,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 14,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_helmet",
+          "weight": 42,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 7,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_helmet",
+          "weight": 8,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 25,
+              "conditions": []
+            }
+          ]
+        }
+      ],
+      "functions": []
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:chainmail_leggings",
+          "weight": 50,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 14,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_leggings",
+          "weight": 42,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 7,
+              "conditions": []
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:golden_leggings",
+          "weight": 8,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 25,
+              "conditions": []
+            }
+          ]
+        }
+      ],
+      "functions": []
+    }
+  ]
+}

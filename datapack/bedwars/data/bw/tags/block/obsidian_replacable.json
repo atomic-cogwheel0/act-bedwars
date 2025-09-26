@@ -1,0 +1,16 @@
+{
+	"replace":false,
+	"values": [
+		"#minecraft:air",
+		"#minecraft:wool",
+		"#minecraft:flowers",
+		"#minecraft:mineable/axe",
+		"#minecraft:mineable/hoe",
+		"#minecraft:mineable/shovel",
+		"#minecraft:mineable/pickaxe"
+		
+	
+	]
+
+
+}
