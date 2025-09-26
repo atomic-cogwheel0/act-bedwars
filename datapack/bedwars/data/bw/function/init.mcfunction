@@ -70,7 +70,7 @@ scoreboard players set hardcore game 0
 scoreboard players set firstDiamond game 90
 scoreboard players set firstEmerald game 180
 
-scoreboard objectives setdisplay sidebar GameBar
+scoreboard objectives setdisplay sidebar wins
 
 say "scores done"
 
@@ -95,7 +95,7 @@ team modify red friendlyFire false
 team modify yellow friendlyFire false
 team modify green friendlyFire false
 
-team modify CurrentMap suffix ": None"
+team modify CurrentMap suffix " None"
 team join CurrentMap Map:
 
 team modify border prefix "Border "
@@ -115,8 +115,8 @@ say "teams set"
 
 kill @e[type=!player]
 
-place template bw:lobby1 -15 -40 -11
-place template bw:lobby2 13 -40 -11
+place template bw:lobby1 -16 -40 -11
+place template bw:lobby2 12 -40 -11
 
 execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
