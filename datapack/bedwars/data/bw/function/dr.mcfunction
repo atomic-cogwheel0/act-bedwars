@@ -1,7 +1,5 @@
-execute if score gameOn game matches 1 as @s[team=!] run scoreboard players set @s[team=!white] deathCalc 5
-#execute as @s[team=!,scores={banishing=1..}] run scoreboard players set @s[team=!white] deathCalc 5
-execute if score gameOn game matches 1 as @s[team=!,scores={banishing=1..}] run scoreboard players set @s[team=!white] deathCalc 15
-#execute if score gameOn game matches 1 as @s[team=!,nbt={active_effects:[{id:"minecraft:unluck"}]}] run scoreboard players set @s[team=!white] deathCalc 15
+execute if score gameOn game matches 1 as @s[team=!] run scoreboard players operation @s[team=!white] deathCalc = respawnDelayNormal config
+execute if score gameOn game matches 1 as @s[team=!,scores={banishing=1..}] run scoreboard players operation @s[team=!white] deathCalc = respawnDelayBanished config
 
 execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
@@ -22,6 +20,7 @@ execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run e
 execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run team join white @s
 
 execute as @s[team=white] run gamemode spectator @s
+execute as @s[team=!white,team=!] run gamemode adventure @s
 
 # player kills handle resources differently in transfer_loot_via_llama_spit
 execute if score @s doneDrops matches 0 store result score @s IronLost run clear @s iron_ingot

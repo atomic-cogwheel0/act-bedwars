@@ -14,7 +14,7 @@ give @s salmon_spawn_egg[custom_name="Red Island Upgrade",entity_data={id:"armor
 give @s donkey_spawn_egg[custom_name={"text":"Dead Players Spawn"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["DeadSpawn"],Invisible:1b,Marker:1b}]
 give @s phantom_spawn_egg[custom_name={"text":"Drop Spawn"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["Drop"],Invisible:1b,Marker:1b}]
 give @s allay_spawn_egg[custom_name={"text":"Blue Bed"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["BlueBed"],Invisible:1b,Marker:1b}]
-give @s parrot_spawn_egg[custom_name={"text":"Green Bed"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["GreenBed"],Invisible:1b,Marker:1b}]
+give @s turtle_spawn_egg[custom_name={"text":"Green Bed"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["GreenBed"],Invisible:1b,Marker:1b}]
 give @s mooshroom_spawn_egg[custom_name={"text":"Red Bed"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["RedBed"],Invisible:1b,Marker:1b}]
 give @s bee_spawn_egg[custom_name={"text":"Yellow Bed"},entity_data={id:"armor_stand",NoGravity:1b,Invulnerable:1b,Tags:["YellowBed"],Invisible:1b,Marker:1b}]
 #give @s fox_spawn_egg{display:{Name:'{"text":"Shop"}'},EntityTag:{id:"armor_stand",NoGravity:1b,Invulnerable:1,Tags:["shop"],Invisible:1,Marker:1}}

@@ -82,10 +82,11 @@ kill @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1
 execute as @a[scores={deathReset=1..}] run function bw:dr
 
 # Villagers' facing directions
-execute as @e[type=villager] at @s run rotate @s facing entity @p
+execute as @e[type=villager] at @s unless entity @e[type=shulker,limit=1,sort=nearest,distance=..5] run rotate @s facing entity @p
+execute as @e[type=villager] at @s if entity @e[type=shulker,limit=1,sort=nearest,distance=..5] run rotate @s facing entity @n[type=shulker]
 execute as @e[type=wandering_trader] at @s run rotate @s facing entity @p
 
-# Player counter
+# Set gamemode when someone rejoins
 execute as @a[tag=!joined] run scoreboard players set @s leave 1
 tag @a[tag=!joined] add joined
 
@@ -94,8 +95,8 @@ execute as @a[scores={leave=1..},team=] run gamemode adventure @s
 execute as @a[scores={leave=1..},team=] run team join white
 scoreboard players set @a[scores={leave=1..}] leave 0
 
-# Safe mode
-execute if score gameOn game matches 0 as @a[x=-120,y=-64,z=-120,dx=240,dy=64,dz=240] if score safeMode game matches 1 run gamemode adventure @s[team=!]
+# Safe mode, set gamemode in lobby
+execute if score gameOn game matches 0 as @a[x=-120,y=-64,z=-120,dx=240,dy=64,dz=240] if score safeMode config matches 1 run gamemode adventure @s[team=!]
 
 # Ships map poisonous water
 execute if score map game matches 1 if score gameOn game matches 1 as @a[x=-120,y=0,z=-120,dx=240,dy=320,dz=240,team=!white] at @s[team=!] if block ~ ~ ~ water if block ~ ~-1 ~ water run damage @s 3 drown

@@ -29,8 +29,9 @@ execute if score map game matches 5 run function bw:loadvillage
 execute if score map game matches 6 run function bw:loadtunnels
 execute if score map game matches 7 run function bw:loadtree
 execute if score map game matches 8 run function bw:loadcrypt
+execute if score map game matches 9 run function bw:loadgraveyard
 
-execute at @e[type=armor_stand,tag=Lobby] run spawnpoint @a ~ ~ ~
+execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @a ~ ~ ~
 
 #execute as @a[team=white] run team leave @s
 
@@ -71,7 +72,7 @@ scoreboard players set @a DiamondsLost 0
 scoreboard players set @a EmeraldsLost 0
 scoreboard players set @a IronLost 0
 
-scoreboard players set @a deathCountdown 100
+scoreboard players set @a deathReset 0
 
 scoreboard players set alive game 0
 
@@ -92,7 +93,7 @@ execute as @a[team=!] run execute as @s[team=!white] run scoreboard players add 
 worldborder set 240
 
 scoreboard players set border game 0
-scoreboard players set borderShrink game 0
+scoreboard players set borderStarted game 0
 scoreboard players set deathMatch game 0
 
 scoreboard players set time game 0

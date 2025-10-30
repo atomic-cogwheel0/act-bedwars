@@ -1,6 +1,6 @@
 scoreboard objectives add deathReset deathCount
-scoreboard objectives add killed totalKillCount
 
+scoreboard objectives add config dummy
 scoreboard objectives add game dummy
 scoreboard objectives add GameBar dummy
 scoreboard objectives add wins dummy Wins
@@ -14,7 +14,6 @@ scoreboard objectives add hpboost dummy
 scoreboard objectives add banishing dummy
 scoreboard objectives add cyanide dummy
 
-scoreboard objectives add deathCountdown dummy
 scoreboard objectives add deathCalc dummy
 
 scoreboard objectives add IronLost dummy
@@ -60,15 +59,31 @@ scoreboard objectives add bedStandFacingDir dummy
 
 scoreboard objectives add bedBroken dummy
 
+# default config
 scoreboard players set Map: GameBar -1
+scoreboard players set Hardcore: GameBar -1
 scoreboard players set Map: wins -1
+scoreboard players set Hardcore: wins -1
 
 scoreboard players set map game 0
 scoreboard players set gameOn game 0
-scoreboard players set safeMode game 1
 scoreboard players set hardcore game 0
-scoreboard players set firstDiamond game 90
-scoreboard players set firstEmerald game 180
+
+scoreboard players set safeMode config 1
+
+scoreboard players set ironDelay config 3
+scoreboard players set diamondDelay config 20
+scoreboard players set emeraldDelay config 40
+
+scoreboard players set firstDiamond config 90
+scoreboard players set firstEmerald config 180
+
+scoreboard players set respawnDelayNormal config 5
+scoreboard players set respawnDelayBanished config 15
+
+scoreboard players set borderMinSize config 60
+scoreboard players set borderAdvanceDelay config 240
+scoreboard players set borderStartTime config 900
 
 scoreboard objectives setdisplay sidebar wins
 
@@ -80,6 +95,7 @@ team add green
 team add blue
 team add white
 team add CurrentMap
+team add HardcoreOn
 team add border
 team add players
 say "teams done"
@@ -97,6 +113,9 @@ team modify green friendlyFire false
 
 team modify CurrentMap suffix " None"
 team join CurrentMap Map:
+
+team modify HardcoreOn suffix " Unknown"
+team join HardcoreOn Hardcore:
 
 team modify border prefix "Border "
 team join border in:
@@ -116,7 +135,7 @@ say "teams set"
 kill @e[type=!player]
 
 place template bw:lobby1 -16 -40 -11
-place template bw:lobby2 12 -40 -11
+place template bw:lobby2 12 -40 -11 none none 1 0 strict
 
 execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
@@ -127,6 +146,7 @@ forceload add -10 -10 10 10
 gamerule announceAdvancements false
 gamerule commandBlockOutput false
 gamerule doDaylightCycle false
+gamerule doWeatherCycle false
 gamerule doImmediateRespawn true
 gamerule doInsomnia false
 gamerule doLimitedCrafting true

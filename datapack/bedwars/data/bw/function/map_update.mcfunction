@@ -7,6 +7,7 @@ execute if score map game matches 5 run team modify CurrentMap suffix " Village"
 execute if score map game matches 6 run team modify CurrentMap suffix " Tunnels"
 execute if score map game matches 7 run team modify CurrentMap suffix " Tree"
 execute if score map game matches 8 run team modify CurrentMap suffix " Crypt"
+execute if score map game matches 9 run team modify CurrentMap suffix " Graveyard"
 
 execute if score gameOn game matches 1 if score hardcore game matches 1 run team modify HardcoreOn suffix " On"
 execute if score gameOn game matches 1 if score hardcore game matches 0 run team modify HardcoreOn suffix " Off"
