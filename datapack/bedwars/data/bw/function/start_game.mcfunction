@@ -14,22 +14,22 @@ tellraw @a "§7An Enchantment Table is available on every diamond island."
 
 #function bw:clones
 
-recipe take @a *
-
 #clear the arena from entities
 kill @e[x=-120,y=0,z=-120,dx=240,dy=320,dz=240,type=!player]
 fill -120 -1 -120 119 -1 119 air replace obsidian
 
 execute store result score hardcore game run scoreboard players get hardcoreLever game
 
-execute if score map game matches 1 run function bw:loadships
-execute if score map game matches 2 run function bw:loadmines
-execute if score map game matches 4 run function bw:loadmoon
-execute if score map game matches 5 run function bw:loadvillage
-execute if score map game matches 6 run function bw:loadtunnels
-execute if score map game matches 7 run function bw:loadtree
-execute if score map game matches 8 run function bw:loadcrypt
-execute if score map game matches 9 run function bw:loadgraveyard
+execute unless data storage world barrier_made run function bw:barrier
+
+execute if score map game matches 1 run function bw:load_map/ships
+execute if score map game matches 2 run function bw:load_map/mines
+execute if score map game matches 4 run function bw:load_map/moon
+execute if score map game matches 5 run function bw:load_map/village
+execute if score map game matches 6 run function bw:load_map/tunnels
+execute if score map game matches 7 run function bw:load_map/tree
+execute if score map game matches 8 run function bw:load_map/crypt
+execute if score map game matches 9 run function bw:load_map/graveyard
 
 execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @a ~ ~ ~
 
@@ -117,3 +117,5 @@ execute as @a at @a run playsound item.goat_horn.sound.2 ambient @s ~ ~ ~
 
 # wait for armor stands to take up final position
 schedule function bw:set_bed_facing 20t
+
+recipe take @a *

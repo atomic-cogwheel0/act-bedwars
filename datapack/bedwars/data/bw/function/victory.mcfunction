@@ -21,6 +21,8 @@ team empty green
 team empty blue
 clear @a
 
-scoreboard players add @s wins 1
+# won't run multiple times :)
+schedule function bw:tell_game_time 1t replace
 
+scoreboard players add @s wins 1
 scoreboard objectives setdisplay sidebar wins

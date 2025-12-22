@@ -56,7 +56,8 @@ execute as @e[tag=fletcher] run data modify entity @s Offers.Recipes append valu
 
 execute as @e[tag=fletcher] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"diamond", count:3}, sell:{id:"firework_rocket", count:3, components:{tooltip_display:{hidden_components:["fireworks","firework_explosion"]}, fireworks:{flight_duration:0, explosions:[{shape:"large_ball", has_trail:true, colors:[11743532,15435844], fade_colors:[11250603,14602026]}]}, custom_name:{text:"Short Range Firework Rocket",italic:false}, lore:[{text:"You can shoot fireworks from crossbows"}]}}}
 
-execute as @e[tag=fletcher] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:4}, sell:{id:"wind_charge", count:1}}
+execute if score doubleJumpEnabled config matches 0 as @e[tag=fletcher] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:4}, sell:{id:"wind_charge", count:1}}
+execute unless score doubleJumpEnabled config matches 0 as @e[tag=fletcher] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:4}, sell:{id:"wind_charge", count:1, components:{lore:["In hotbar: throwable projectile", "In inventory: enables double jump (costs 2 charges)"]}}}
 
 
 
@@ -72,7 +73,7 @@ execute as @e[tag=weaponsmith] run data modify entity @s Offers.Recipes append v
 
 execute as @e[tag=weaponsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:4}, sell:{id:"potion", count:1, components:{potion_contents:{potion:invisibility}}}}
 
-execute as @e[tag=weaponsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:16}, buyB:{id:"diamond", count:10}, sell:{id:"snowball", count:1, components:{custom_data:{fireball:1b}, custom_name:{text:"Fireball",bold:true,italic:false,color:"red"}}}}
+execute as @e[tag=weaponsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:16}, sell:{id:"snowball", count:1, components:{custom_data:{fireball:1b}, custom_name:{text:"Fireball",bold:true,italic:false,color:"red"}}}}
 
 
 
@@ -103,6 +104,8 @@ execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append val
 execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:4}, buyB:{id:"diamond", count:4}, sell:{id:"shears", count:1}}
 
 execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:16}, sell:{id:"cyan_dye", count:1, components:{custom_name:{text:"Socrates' Hemlock Drink",italic:false,color:"aqua"}, food:{can_always_eat:true, nutrition:0, saturation:0}, consumable:{animation:"drink"}, lore:["Ancient item. Deadly. Beware!"]}}}
+
+execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:18}, sell:{id:"ghast_tear", count:1, components:{custom_name:{text:"Happy Ghast Summoner",italic:false}, lore:["Consume to summon and mount a one-ride Happy Ghast!"], food:{can_always_eat:true, nutrition:0, saturation:0}, consumable:{}}}}
 
 
 

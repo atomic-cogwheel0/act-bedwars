@@ -1,0 +1,1 @@
+tellraw @a [{text:"This game lasted "},{score:{objective:"game",name:"time"},bold:true,color:"aqua"},{text:" seconds."}]

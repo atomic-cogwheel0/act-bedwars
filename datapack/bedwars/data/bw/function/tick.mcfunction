@@ -68,8 +68,11 @@ execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b
 
 # Fireball
 execute at @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] run summon fireball ~ ~ ~ {Tags:["fireball"], NoGravity:1b,ExplosionPower:4}
-execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s run data modify entity @n[type=fireball] Motion set from entity @s Motion
-execute as @e[type=fireball] store result entity @s acceleration_power double 0.00001 run data get entity @s Motion[0] 5264
+#execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s run data modify entity @n[type=fireball] Motion set from entity @s Motion
+execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s store result entity @n[type=fireball] Motion[0] double 0.00001 run data get entity @s Motion[0] 5264
+execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s store result entity @n[type=fireball] Motion[1] double 0.00001 run data get entity @s Motion[1] 5264
+execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s store result entity @n[type=fireball] Motion[2] double 0.00001 run data get entity @s Motion[2] 5264
+#execute as @e[type=fireball] store result entity @s acceleration_power double 0.00001 run data get entity @s Motion[0] 5264
 kill @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}]
 
 # Double jump
@@ -111,3 +114,35 @@ execute as @a[scores={parkourMessage=1}] run scoreboard players set @s parkourMe
 
 # Cyanide
 execute as @a[scores={cyanide=1..}] run damage @s 2000 cramming
+
+# Double jump
+execute as @e[tag=jump,type=minecraft:armor_stand] run kill @s
+
+execute if score doubleJumpEnabled config matches 1 if score gameOn game matches 1 as @a[tag=!has_jumped,tag=can_jump] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type_specific:{type:"minecraft:player",input:{jump:1b},gamemode:["survival"]},flags:{is_on_ground:0b,is_flying:0b}}} unless items entity @s hotbar.* wind_charge store result score @s doJump run clear @s wind_charge 2
+execute as @a[scores={doJump=1..}] at @s run summon armor_stand ~ ~-.15 ~ {Invisible:1b,Silent:1b,NoGravity:1b,Tags:["jump"]}
+execute as @a[scores={doJump=1..}] run effect give @s jump_boost infinite 255 true
+effect give @e[type=minecraft:armor_stand,tag=jump] wind_charged infinite 5 true
+execute as @a[tag=!has_jumped,tag=can_jump,scores={doJump=1..}] run tag @s add has_jumped
+execute as @a[scores={doJump=1..}] run scoreboard players set @s doJump 0
+
+execute as @a[tag=has_jumped] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_on_ground:1b}}} run effect clear @s jump_boost
+execute as @a[tag=has_jumped] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_on_ground:1b}}} run tag @s remove has_jumped
+
+execute as @a[tag=can_jump] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_on_ground:1b}}} run tag @s remove can_jump
+
+execute as @a[tag=!has_jumped] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type_specific:{type:"minecraft:player",input:{jump:0b}},flags:{is_on_ground:0b,is_flying:0b}}} run tag @s add can_jump
+
+# Happy ghast
+execute as @a[scores={ghastSpawning=1..},team=red] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:red_harness"}}}
+execute as @a[scores={ghastSpawning=1..},team=blue] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:blue_harness"}}}
+execute as @a[scores={ghastSpawning=1..},team=yellow] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:yellow_harness"}}}
+execute as @a[scores={ghastSpawning=1..},team=green] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:green_harness"}}}
+
+execute as @a[scores={ghastSpawning=1..}] at @s run attribute @n[type=minecraft:happy_ghast] scale base set 0.5
+execute as @a[scores={ghastSpawning=1..}] at @s run ride @s mount @n[type=minecraft:happy_ghast]
+execute as @a[scores={ghastSpawning=1..}] at @s run scoreboard players set @s ghastSpawning 0
+
+execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} run data merge entity @s {Silent:1b}
+execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} at @s run playsound entity.breeze.inhale ambient @a ~ ~ ~ 1
+execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} run tp 0 720 0
+execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} run kill @s

@@ -49,6 +49,9 @@ execute if score time game = firstEmerald config run tellraw @a [{text:"The firs
 
 #################
 
+# don't despawn items
+execute if score persistentItems config matches 1 run execute as @e[type=item] run data merge entity @s {Age:0}
+
 # bridge egg
 scoreboard players add @e[type=snowball,tag=bridge] bridge 1
 
@@ -125,9 +128,9 @@ scoreboard players operation playerCount game += ingreen game
 scoreboard players operation playerCount game += inyellow game
 
 execute if score gameOn game matches 1 if score inyellow game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=red,limit=1] run tellraw @a [{text:"The red team won!",color:"red"}]
-execute if score gameOn game matches 1 if score inred game matches 0 if score inyellow game matches 0 if score ingreen game matches 0 as @a[team=blue,limit=1] run tellraw @a [{text:"The blue team won!",color:"blue"}] 
-execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score inyellow game matches 0 as @a[team=green,limit=1] run tellraw @a [{text:"The green team won!",color:"green"}] 
-execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=yellow,limit=1] run tellraw @a [{text:"The yellow team won!",color:"yellow"}] 
+execute if score gameOn game matches 1 if score inred game matches 0 if score inyellow game matches 0 if score ingreen game matches 0 as @a[team=blue,limit=1] run tellraw @a [{text:"The blue team won!",color:"blue"}]
+execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score inyellow game matches 0 as @a[team=green,limit=1] run tellraw @a [{text:"The green team won!",color:"green"}]
+execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=yellow,limit=1] run tellraw @a [{text:"The yellow team won!",color:"yellow"}]
 
 execute if score gameOn game matches 1 if score inyellow game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=red] run function bw:victory
 execute if score gameOn game matches 1 if score inred game matches 0 if score inyellow game matches 0 if score ingreen game matches 0 as @a[team=blue] run function bw:victory

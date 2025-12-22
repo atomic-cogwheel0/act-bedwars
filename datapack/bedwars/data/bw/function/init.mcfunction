@@ -5,6 +5,9 @@ scoreboard objectives add game dummy
 scoreboard objectives add GameBar dummy
 scoreboard objectives add wins dummy Wins
 
+scoreboard objectives modify GameBar displayname "Game Stats"
+scoreboard objectives modify wins displayname "Wins"
+
 scoreboard objectives add hp health
 scoreboard objectives setdisplay below_name hp
 scoreboard objectives setdisplay list hp
@@ -12,7 +15,8 @@ scoreboard objectives modify hp rendertype hearts
 
 scoreboard objectives add hpboost dummy
 scoreboard objectives add banishing dummy
-scoreboard objectives add cyanide dummy
+scoreboard objectives add cyanide used:cyan_dye
+scoreboard objectives add ghastSpawning used:ghast_tear
 
 scoreboard objectives add deathCalc dummy
 
@@ -59,6 +63,8 @@ scoreboard objectives add bedStandFacingDir dummy
 
 scoreboard objectives add bedBroken dummy
 
+scoreboard objectives add doJump dummy
+
 # default config
 scoreboard players set Map: GameBar -1
 scoreboard players set Hardcore: GameBar -1
@@ -84,6 +90,9 @@ scoreboard players set respawnDelayBanished config 15
 scoreboard players set borderMinSize config 60
 scoreboard players set borderAdvanceDelay config 240
 scoreboard players set borderStartTime config 900
+
+scoreboard players set doubleJumpEnabled config 1
+scoreboard players set persistentItems config 0
 
 scoreboard objectives setdisplay sidebar wins
 
@@ -164,5 +173,3 @@ data modify storage world created set value 1
 say "world setup done"
 
 function bw:1s
-
-schedule function bw:barrier 1s
