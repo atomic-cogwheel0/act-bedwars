@@ -12,7 +12,7 @@ execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] at @e[tag=Ye
 execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] run give @a[team=yellow] trial_key
 
 # self-break
-execute if entity @a[scores={yellowBedsBroken=1..},team=yellow] run function bw:replaceyellowbed
+execute if entity @a[scores={yellowBedsBroken=1..},team=yellow] run function bw:replace_bed/yellow
 
 kill @e[type=item,nbt={Item:{id:"minecraft:yellow_bed"}}]
 

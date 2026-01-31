@@ -1,4 +1,4 @@
-function bw:fills_stone
+function bw:stone_fills/fills_stone_full
 # is this needed?
 #fill -120 1 -120 119 16 119 water
 #fill -120 1 -120 119 1 119 sand

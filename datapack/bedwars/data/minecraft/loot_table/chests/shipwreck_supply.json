@@ -251,7 +251,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_randomly",
-              "enchantments": [
+              "options": [
                 "minecraft:protection",
                 "minecraft:feather_falling",
                 "minecraft:mending",

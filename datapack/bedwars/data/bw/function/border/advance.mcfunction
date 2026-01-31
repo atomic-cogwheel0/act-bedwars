@@ -1,5 +1,6 @@
 scoreboard players set border game 0
 worldborder add -10 20
+
 kill @e[type=chest_minecart]
 #execute at @e[type=armor_stand,tag=Drop] run kill @e[type=item,distance=..3]
 execute at @e[type=armor_stand,tag=Drop] run summon chest_minecart ~ ~50 ~ {LootTable:"chests/end_city_treasure"}

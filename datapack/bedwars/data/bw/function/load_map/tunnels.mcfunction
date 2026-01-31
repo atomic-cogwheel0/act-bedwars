@@ -1,4 +1,4 @@
-function bw:fills_stone
+function bw:stone_fills/fills_stone_full
 
 fill 5 1 -120 -5 28 119 air
 fill 5 28 -120 -5 28 119 stone

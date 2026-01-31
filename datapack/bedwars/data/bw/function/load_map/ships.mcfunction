@@ -1,4 +1,4 @@
-function bw:fills_air
+function bw:air_fills/fills_air_full
 
 fill -120 1 -120 119 16 119 water replace air
 fill -120 1 -120 119 1 119 sand

@@ -1,5 +1,5 @@
 time set day
-function bw:fills_air
+function bw:air_fills/fills_air_full
 
 place template village:emerald -20 32 -20
 

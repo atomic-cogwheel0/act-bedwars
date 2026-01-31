@@ -1,5 +1,5 @@
 time set 14000
-function bw:fills_air
+function bw:air_fills/fills_air_full
 
 place template graveyard:emerald -24 46 -24
 

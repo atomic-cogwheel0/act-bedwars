@@ -2,7 +2,7 @@
   "type": "minecraft:vault",
   "pools": [
     {
-      "rolls": 3,
+      "rolls": 4,
       "entries": [
         {
           "type": "minecraft:item",
@@ -22,7 +22,7 @@
         {
           "type": "minecraft:item",
           "name": "cooked_beef",
-          "weight": 25,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -52,7 +52,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:end_stone_bricks",
-          "weight": 30,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -60,6 +60,21 @@
                 "type": "minecraft:uniform",
                 "min": 20,
                 "max": 40
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:wind_charge",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 32,
+                "max": 48
               }
             }
           ]
@@ -72,7 +87,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_axe",
-          "weight": 10,
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:set_enchantments",
@@ -85,7 +100,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:iron_sword",
-          "weight": 80,
+          "weight": 40,
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
@@ -104,22 +119,43 @@
             },
             {
               "function": "minecraft:set_name",
-              "tag": "",
               "entity": "this",
               "name": {
                 "text": "§6Jackpot Sword",
                 "bold": true,
-                "italic": false,
-                "underlined": false,
-                "strikethrough": false,
-                "obfuscated": false
+                "italic": false
+              },
+              "target": "item_name"
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:orange_harness",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "minecraft:set_lore",
+              "entity": "this",
+              "lore": [{
+                "text": "Use Shears to swap Harnesses on a Happy Ghast",
+                "italic": true
+              }],
+              "mode": "replace_all"
+            },
+            {
+              "function": "minecraft:set_name",
+              "entity": "this",
+              "name": {
+                "text": "§6The Orange Harness of Dest§kruction",
+                "bold": true,
+                "italic": false
               },
               "target": "item_name"
             }
           ]
         }
-      ],
-      "functions": []
+      ]
     }
   ]
 }

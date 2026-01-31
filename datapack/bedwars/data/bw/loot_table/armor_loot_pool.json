@@ -12,8 +12,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 14,
-              "conditions": []
+              "levels": 14
             }
           ]
         },
@@ -25,8 +24,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 7,
-              "conditions": []
+              "levels": 7
             }
           ]
         },
@@ -38,13 +36,11 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 25,
-              "conditions": []
+              "levels": 25
             }
           ]
         }
-      ],
-      "functions": []
+      ]
     },
     {
       "rolls": 1,
@@ -57,8 +53,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 14,
-              "conditions": []
+              "levels": 14
             }
           ]
         },
@@ -70,8 +65,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 7,
-              "conditions": []
+              "levels": 7
             }
           ]
         },
@@ -83,13 +77,11 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 25,
-              "conditions": []
+              "levels": 25
             }
           ]
         }
-      ],
-      "functions": []
+      ]
     },
     {
       "rolls": 1,
@@ -102,8 +94,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 14,
-              "conditions": []
+              "levels": 14
             }
           ]
         },
@@ -115,8 +106,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 7,
-              "conditions": []
+              "levels": 7
             }
           ]
         },
@@ -128,13 +118,11 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 25,
-              "conditions": []
+              "levels": 25
             }
           ]
         }
-      ],
-      "functions": []
+      ]
     },
     {
       "rolls": 1,
@@ -147,8 +135,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 14,
-              "conditions": []
+              "levels": 14
             }
           ]
         },
@@ -160,8 +147,7 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 7,
-              "conditions": []
+              "levels": 7
             }
           ]
         },
@@ -173,13 +159,114 @@
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",
-              "levels": 25,
-              "conditions": []
+              "levels": 25
             }
           ]
         }
-      ],
-      "functions": []
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_boots",
+          "weight": 27,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "options": "#in_enchanting_table",
+              "levels": 25
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_leggings",
+          "weight": 17,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 16
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_chestplate",
+          "weight": 12,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 14
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:diamond_helmet",
+          "weight": 24,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 23
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_boots",
+          "weight": 4,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "options": "#in_enchanting_table",
+              "levels": 26
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_leggings",
+          "weight": 2,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 18
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_chestplate",
+          "weight": 1,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 16
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:netherite_helmet",
+          "weight": 3,
+          "quality": 0,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 24
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -40,21 +40,21 @@ execute at @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{pot
 kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:fire_resistance"}}},inBlockState:{}}]
 
 # lovely bunch of arrows
-execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:invisibility"}}},inBlockState:{}},scores={}] at @s run function bw:bunchaarrows
+execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:invisibility"}}},inBlockState:{}},scores={}] at @s run function bw:arrow/bunchaarrows
 kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:invisibility"}}},inBlockState:{}},scores={idk=5..}]
 
-# summon one arrow each tick while in flight
+# summon one arrow each tick while in flight (chaos arrow)
 execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weakness"}}}},scores={}] at @s run summon arrow ~ ~ ~ {item:{id:"minecraft:arrow",components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
 kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weakness"}}},inBlockState:{}}]
 
-execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weaving"}}},inBlockState:{}},scores={}] at @s run function bw:prison
+execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weaving"}}},inBlockState:{}},scores={}] at @s run function bw:arrow/prison
 kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weaving"}}},inBlockState:{}}]
 
 # Bed break detection
-execute at @e[type=armor_stand,tag=YellowBed] unless block ~ ~ ~ yellow_bed unless block ~ ~ ~ end_portal_frame run function bw:yellowbedbroken
-execute at @e[type=armor_stand,tag=RedBed] unless block ~ ~ ~ red_bed unless block ~ ~ ~ end_portal_frame run function bw:redbedbroken
-execute at @e[type=armor_stand,tag=BlueBed] unless block ~ ~ ~ blue_bed unless block ~ ~ ~ end_portal_frame run function bw:bluebedbroken
-execute at @e[type=armor_stand,tag=GreenBed] unless block ~ ~ ~ green_bed unless block ~ ~ ~ end_portal_frame run function bw:greenbedbroken
+execute at @e[type=armor_stand,tag=YellowBed] unless block ~ ~ ~ yellow_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/yellow
+execute at @e[type=armor_stand,tag=RedBed] unless block ~ ~ ~ red_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/red
+execute at @e[type=armor_stand,tag=BlueBed] unless block ~ ~ ~ blue_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/blue
+execute at @e[type=armor_stand,tag=GreenBed] unless block ~ ~ ~ green_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/green
 
 # Bridge egg
 #execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin run say alma
@@ -75,14 +75,8 @@ execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fire
 #execute as @e[type=fireball] store result entity @s acceleration_power double 0.00001 run data get entity @s Motion[0] 5264
 kill @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}]
 
-# Double jump
-#execute as @e[type=minecraft:wind_charge] at @s store result entity @s Motion[0] double 10 run data get entity @p Motion[0] -10
-#execute as @e[type=minecraft:wind_charge] at @s store result entity @s Motion[1] double 10 run data get entity @p Motion[1] 10
-#execute as @e[type=minecraft:wind_charge] at @s store result entity @s Motion[2] double 10 run data get entity @p Motion[2] -10
-# -10 -10 -10 is good
-
 # Death reset
-execute as @a[scores={deathReset=1..}] run function bw:dr
+execute as @a[scores={deathReset=1..}] run function bw:on_death/death_reset
 
 # Villagers' facing directions
 execute as @e[type=villager] at @s unless entity @e[type=shulker,limit=1,sort=nearest,distance=..5] run rotate @s facing entity @p
@@ -137,6 +131,9 @@ execute as @a[scores={ghastSpawning=1..},team=red] at @s run summon minecraft:ha
 execute as @a[scores={ghastSpawning=1..},team=blue] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:blue_harness"}}}
 execute as @a[scores={ghastSpawning=1..},team=yellow] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:yellow_harness"}}}
 execute as @a[scores={ghastSpawning=1..},team=green] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:green_harness"}}}
+
+execute as @a[scores={ghastSpawning=1..},team=white] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:white_harness"}}}
+execute as @a[scores={ghastSpawning=1..},team=] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:light_gray_harness"}}}
 
 execute as @a[scores={ghastSpawning=1..}] at @s run attribute @n[type=minecraft:happy_ghast] scale base set 0.5
 execute as @a[scores={ghastSpawning=1..}] at @s run ride @s mount @n[type=minecraft:happy_ghast]

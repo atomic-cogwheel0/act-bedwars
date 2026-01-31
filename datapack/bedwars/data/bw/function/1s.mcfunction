@@ -49,8 +49,11 @@ execute if score time game = firstEmerald config run tellraw @a [{text:"The firs
 
 #################
 
+# disable crafting
+recipe take @a *
+
 # don't despawn items
-execute if score persistentItems config matches 1 run execute as @e[type=item] run data merge entity @s {Age:0}
+execute if score gameOn game matches 1 if score persistentItems config matches 1 run execute as @e[type=item] run data merge entity @s {Age:0}
 
 # bridge egg
 scoreboard players add @e[type=snowball,tag=bridge] bridge 1
@@ -76,16 +79,16 @@ execute if score gameOn game matches 1 run gamemode spectator @a[team=white]
 execute as @a[x=-120,y=-64,z=-120,dx=240,dy=64,dz=240] run effect give @s resistance 2 42 true
 
 execute as @a[team=!] run execute as @s[team=!white] store result score @s upgrade1 run clear @s sugar 0
-execute as @a run execute as @s if score @s upgrade1 matches 1 run function bw:islandupgrade1
+execute as @a run execute if score @s upgrade1 matches 1.. run function bw:upgrade/island1
 
 execute as @a[team=!] run execute as @s[team=!white] store result score @s upgrade2 run clear @s ink_sac 0
-execute as @a run execute as @s if score @s upgrade2 matches 1 run function bw:islandupgrade2
+execute as @a run execute if score @s upgrade2 matches 1.. run function bw:upgrade/island2
 
 execute as @a[team=!] run execute as @s[team=!white] store result score @s upgrade3 run clear @s glow_ink_sac 0
-execute as @a run execute as @s if score @s upgrade3 matches 1 run function bw:islandupgrade3
+execute as @a run execute if score @s upgrade3 matches 1.. run function bw:upgrade/island3
 
 execute as @a[team=!] run execute as @s[team=!white] store result score @s alarmBought run clear @s nether_star
-execute as @a run execute as @s if score @s alarmBought matches 1 run function bw:setalarm
+execute as @a run execute if score @s alarmBought matches 1.. run function bw:upgrade/bed_alarm
 
 # respawning players with a delay
 execute as @a[team=red] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=RedSpawn, limit=1]
@@ -106,13 +109,17 @@ scoreboard players remove @a deathCalc 1
 execute store result score borderSize game run worldborder get
 execute if score gameOn game matches 1 run scoreboard players add border game 1
 
-execute if score border game >= borderStartTime config if score borderStarted game matches 0 run function bw:borderstart
-execute if score borderStarted game matches 1 if score border game >= borderAdvanceDelay config if score borderSize game > borderMinSize config run function bw:border
-execute if score borderSize game <= bedBreak game if score deathMatch game matches 0 run function bw:deathmatch
+execute if score border game >= borderStartTime config if score borderStarted game matches 0 run function bw:border/start
+execute if score borderStarted game matches 1 if score border game >= borderAdvanceDelay config if score borderSize game > borderMinSize config run function bw:border/advance
+execute if score borderSize game <= borderMinSize config run bossbar set bw:border_bar name "Border finished advancing"
 
-execute if score borderStarted game matches 0 run scoreboard players operation in: GameBar = borderStartTime config
-execute if score borderStarted game matches 1 run scoreboard players operation in: GameBar = borderAdvanceDelay config
-scoreboard players operation in: GameBar -= border game
+execute if score borderSize game <= bedBreak game if score deathMatch game matches 0 run function bw:border/deathmatch
+
+execute if score borderStarted game matches 0 run scoreboard players operation in GameBar = borderStartTime config
+execute if score borderStarted game matches 1 run scoreboard players operation in GameBar = borderAdvanceDelay config
+# update display
+scoreboard players operation in GameBar -= border game
+scoreboard players operation size GameBar = borderSize game
 
 # player counting, victory
 scoreboard players set playerCount game 0
@@ -137,12 +144,16 @@ execute if score gameOn game matches 1 if score inred game matches 0 if score in
 execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score inyellow game matches 0 as @a[team=green] run function bw:victory
 execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=yellow] run function bw:victory
 
+# teams are empty, only ghosts remain (draw situation)
+execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score ingreen game matches 0 if score inyellow game matches 0 if entity @a[team=white] run function bw:draw
+
 execute if entity @a[team=red] run scoreboard players operation Red GameBar = inred game
 execute if entity @a[team=blue] run scoreboard players operation Blue GameBar = inblue game
 execute if entity @a[team=green] run scoreboard players operation Green GameBar = ingreen game
 execute if entity @a[team=yellow] run scoreboard players operation Yellow GameBar = inyellow game
 
-scoreboard players operation Alive: GameBar = alive game
+# update game bar
+scoreboard players operation Alive GameBar = alive game
 
 # disable the closest diamond spawner to empty teams
 execute at @e[tag=RedSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,limit=1] if score inred game matches 0 run scoreboard players set @s diamond 0
@@ -151,17 +162,17 @@ execute at @e[tag=GreenSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,l
 execute at @e[tag=YellowSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,limit=1] if score inyellow game matches 0 run scoreboard players set @s diamond 0
 
 # the Alarm that you can buy at the exotic trader
-execute if score redAlarm game matches 1 as @a[team=!red] at @s if entity @e[tag=RedBed,distance=..5,limit=1] run tellraw @a[team=red] {text:"Your bed is under attack!",color:"dark_purple"}
-execute if score redAlarm game matches 1 as @a[team=!red] at @s if entity @e[tag=RedBed,distance=..5,limit=1] run scoreboard players set redAlarm game 0
+execute if score redAlarm game matches 1.. as @a[team=!red] at @s if entity @e[tag=RedBed,distance=..10,limit=1] run tellraw @a[team=red] {text:"Your bed is under attack!",color:"dark_purple"}
+execute if score redAlarm game matches 1.. as @a[team=!red] at @s if entity @e[tag=RedBed,distance=..10,limit=1] run scoreboard players remove redAlarm game 1
 
-execute if score blueAlarm game matches 1 as @a[team=!blue] at @s if entity @e[tag=BlueBed,distance=..5,limit=1] run tellraw @a[team=blue] {text:"Your bed is under attack!",color:"dark_purple"}
-execute if score blueAlarm game matches 1 as @a[team=!blue] at @s if entity @e[tag=BlueBed,distance=..5,limit=1] run scoreboard players set blueAlarm game 0
+execute if score blueAlarm game matches 1.. as @a[team=!blue] at @s if entity @e[tag=BlueBed,distance=..10,limit=1] run tellraw @a[team=blue] {text:"Your bed is under attack!",color:"dark_purple"}
+execute if score blueAlarm game matches 1.. as @a[team=!blue] at @s if entity @e[tag=BlueBed,distance=..10,limit=1] run scoreboard players remove blueAlarm game 1
 
-execute if score greenAlarm game matches 1 as @a[team=!green] at @s if entity @e[tag=GreenBed,distance=..5,limit=1] run tellraw @a[team=green] {text:"Your bed is under attack!",color:"dark_purple"}
-execute if score greenAlarm game matches 1 as @a[team=!green] at @s if entity @e[tag=GreenBed,distance=..5,limit=1] run scoreboard players set greenAlarm game 0
+execute if score greenAlarm game matches 1.. as @a[team=!green] at @s if entity @e[tag=GreenBed,distance=..10,limit=1] run tellraw @a[team=green] {text:"Your bed is under attack!",color:"dark_purple"}
+execute if score greenAlarm game matches 1.. as @a[team=!green] at @s if entity @e[tag=GreenBed,distance=..10,limit=1] run scoreboard players remove greenAlarm game 1
 
-execute if score yellowAlarm game matches 1 as @a[team=!yellow] at @s if entity @e[tag=YellowBed,distance=..5,limit=1] run tellraw @a[team=yellow] {text:"Your bed is under attack!",color:"dark_purple"}
-execute if score yellowAlarm game matches 1 as @a[team=!yellow] at @s if entity @e[tag=YellowBed,distance=..5,limit=1] run scoreboard players set yellowAlarm game 0
+execute if score yellowAlarm game matches 1.. as @a[team=!yellow] at @s if entity @e[tag=YellowBed,distance=..10,limit=1] run tellraw @a[team=yellow] {text:"Your bed is under attack!",color:"dark_purple"}
+execute if score yellowAlarm game matches 1.. as @a[team=!yellow] at @s if entity @e[tag=YellowBed,distance=..10,limit=1] run scoreboard players remove yellowAlarm game 1
 
 # health boost
 execute as @a store result score @s hpboost run clear @s pink_dye[custom_data={hpboost:1b}] 0
@@ -202,7 +213,16 @@ execute as @e[type=villager] at @s if block ~ ~ ~ minecraft:obsidian if block ~ 
 
 # update time
 execute if score gameOn game matches 1 run scoreboard players add time game 1
-scoreboard players operation Time: GameBar = time game
+scoreboard players operation Time GameBar = time game
+
+execute as @e[type=minecraft:happy_ghast,nbt={equipment:{body:{count:1,id:"minecraft:orange_harness"}}}] run attribute @s flying_speed base set 0.1
+execute as @e[type=minecraft:happy_ghast,nbt={equipment:{body:{count:1,id:"minecraft:orange_harness"}}}] at @s run summon minecraft:arrow ~ ~ ~ {item:{id:"minecraft:arrow",components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
 
 # refresh map name display
 function bw:map_update
+
+# refresh bossbar
+execute unless score borderStarted game matches 1 run execute store result bossbar bw:border_bar value run scoreboard players get border game
+execute if score borderStarted game matches 1 store result score border bossbarCalc run worldborder get
+execute if score borderStarted game matches 1 unless score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= bedBreak game
+execute if score borderStarted game matches 1 if score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= borderMinSize config

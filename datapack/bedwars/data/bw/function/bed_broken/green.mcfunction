@@ -12,7 +12,7 @@ execute unless entity @a[scores={greenBedsBroken=1..},team=green] at @e[tag=Gree
 execute unless entity @a[scores={greenBedsBroken=1..},team=green] run give @a[team=green] trial_key
 
 # self-break
-execute if entity @a[scores={greenBedsBroken=1..},team=green] run function bw:replacegreenbed
+execute if entity @a[scores={greenBedsBroken=1..},team=green] run function bw:replace_bed/green
 
 kill @e[type=item,nbt={Item:{id:"minecraft:green_bed"}}]
 

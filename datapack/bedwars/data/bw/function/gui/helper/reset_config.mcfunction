@@ -1,0 +1,1 @@
+function bw:init/default_config

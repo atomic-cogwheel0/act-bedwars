@@ -1,5 +1,5 @@
 time set midnight
-function bw:fills_air
+function bw:air_fills/fills_air_full
 
 place template moon_base:emerald -24 37 -24
 place template moon_base:cluster -8 60 -8

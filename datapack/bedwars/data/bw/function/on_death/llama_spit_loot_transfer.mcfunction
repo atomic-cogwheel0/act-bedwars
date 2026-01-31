@@ -24,4 +24,4 @@ tp 0 1000 0
 
 # do the transfers one tick later, mutual kills in the same tick will result in a resource swap
 tag @s add canTransfer
-schedule function bw:do_transfers 1t
+schedule function bw:on_death/do_transfers 1t

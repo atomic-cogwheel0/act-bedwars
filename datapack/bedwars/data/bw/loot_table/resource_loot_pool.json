@@ -26,7 +26,6 @@
           "functions": [
             {
               "function": "minecraft:set_count",
-              "levels": {},
               "count": {
                 "type": "minecraft:uniform",
                 "min": 2,
@@ -68,11 +67,10 @@
         {
           "type": "minecraft:item",
           "name": "gold_ingot",
-          "weight": 7,
+          "weight": 6,
           "functions": [
             {
               "function": "minecraft:set_count",
-              "limit": 1,
               "count": {
                 "type": "minecraft:uniform",
                 "min": 1,
@@ -85,7 +83,7 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:gold_ingot",
-          "weight": 1,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:set_count",

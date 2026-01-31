@@ -16,6 +16,6 @@
         }
     },
     "rewards": {
-        "function": "bw:on_killed_by_player"
+        "function": "bw:on_death/on_killed_by_player"
     }
 }
