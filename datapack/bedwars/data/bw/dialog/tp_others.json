@@ -1,0 +1,21 @@
+{
+    "type": "multi_action",
+    "title": "Other Options",
+    "external_title": "Other Options...",
+    "columns": 2,
+    "actions": [
+        {
+            "label": "Cancel"
+        },
+        {
+            "label": "Teleport to Game Dimension",
+            "action": {
+                "type": "minecraft:run_command",
+                "command": "trigger tpToBw set 2"
+            }
+        }
+    ],
+    "after_action": "close",
+    "pause": false,
+    "can_close_with_escape": false
+}

@@ -1,5 +1,7 @@
 function bw:stone_fills/fills_stone_full
 
+execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+
 fill 5 1 -120 -5 28 119 air
 fill 5 28 -120 -5 28 119 stone
 fill 5 27 -120 4 27 119 stone
@@ -114,7 +116,7 @@ place template tunnels:diamond 63 11 13 180
 
 scoreboard players set bedBreak game 200
 
-kill @e[type=item]
+kill @e[type=item,predicate=bw:in_bedwars]
 time set noon
 
 scoreboard players set villagerType game 2

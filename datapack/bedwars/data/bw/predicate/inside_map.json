@@ -1,0 +1,22 @@
+{
+    "condition": "entity_properties",
+    "entity": "this",
+    "predicate": {
+        "location": {
+            "position": {
+                "x": {
+                    "min": -120,
+                    "max": 119
+                },
+                "y": {
+                    "min": 0,
+                    "max": 159
+                },
+                "z": {
+                    "min": -120,
+                    "max": 119
+                }
+            }
+        }
+    }
+}

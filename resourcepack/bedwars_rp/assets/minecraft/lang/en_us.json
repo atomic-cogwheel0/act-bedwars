@@ -1,14 +1,19 @@
 {
+  "death.attack.fell_into_water": "%1$s died from overhydration",
+  "death.attack.fell_into_water.player": "%1$s got bathed by %2$s",
+  "death.attack.fell_into_water.item": "%1$s got bathed by %2$s using %3$s",
+  "death.attack.fell_off": "%1$s died from a serious skill issue",
+  "death.attack.fell_off.player": "%1$s was knocked off by %2$s",
+  "death.attack.fell_off.item": "%1$s was knocked off by %2$s using %3$s",
+  "death.attack.dignity": "%1$s chose to die with some dignity",
+  "death.attack.dignity.player": "%1$s chose dignity to escape %2$s",
+  "death.attack.dignity.item": "%1$s chose dignity to escape %2$s using %3$s",
+  "item.bw.cracked_emerald": "Cracked Emerald",
+  "item.bw.food": "Radish",
+  "item.bw.deadly_drink": "Socrates' Hemlock Drink",
+  
   "death.attack.player": "%1$s was obliterated by %2$s",
   "death.attack.player.item": "%1$s was obliterated by %2$s using %3$s",
-  "death.attack.drown": "%1$s died from overhydration",
-  "death.attack.drown.player": "%1$s got bathed by %2$s",
-  "death.attack.drown.item": "%1$s got bathed by %2$s using %3$s",
   "death.attack.trident": "%2$s poked %1$s to death with a fork",
-  "death.attack.trident.item": "%2$s poked %1$s to death with %3$s",
-  "death.attack.dragonBreath": "%1$s died from a serious skill issue",
-  "death.attack.dragonBreath.player": "%1$s was knocked off by %2$s",
-  "death.attack.dragonBreath.item": "%1$s was knocked off by %2$s using %3$s",
-  "death.attack.cramming": "%1$s chose to die with some dignity",
-  "item.minecraft.turtle_scute": "Cracked Emerald"
+  "death.attack.trident.item": "%2$s poked %1$s to death with %3$s"
 }

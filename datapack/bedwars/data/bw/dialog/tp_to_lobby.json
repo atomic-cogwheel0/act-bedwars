@@ -1,0 +1,28 @@
+{
+    "type": "multi_action",
+    "title": "Teleport to Bedwars",
+    "external_title": "TP to Bedwars",
+    "columns": 2,
+    "actions": [
+        {
+            "label": "Other Options...",
+            "action": {
+                "type": "show_dialog",
+                "dialog": "bw:tp_others"
+            }
+        },
+        {
+            "label": "Teleport to Lobby!",
+            "action": {
+                "type": "minecraft:run_command",
+                "command": "trigger tpToBw set 1"
+            }
+        },
+        {
+            "label": "Cancel"
+        }
+    ],
+    "after_action": "close",
+    "pause": false,
+    "can_close_with_escape": false
+}

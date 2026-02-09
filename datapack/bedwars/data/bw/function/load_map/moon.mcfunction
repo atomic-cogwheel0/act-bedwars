@@ -1,6 +1,8 @@
 time set midnight
 function bw:air_fills/fills_air_full
 
+execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+
 place template moon_base:emerald -24 37 -24
 place template moon_base:cluster -8 60 -8
 
@@ -16,7 +18,7 @@ place template moon_base:yellow_base 13 25 68 clockwise_90
 
 scoreboard players set bedBreak game 168
 
-kill @e[type=item]
+kill @e[type=item,predicate=bw:in_bedwars]
 
 scoreboard players set villagerType game 1
 function bw:setvillagers_unified

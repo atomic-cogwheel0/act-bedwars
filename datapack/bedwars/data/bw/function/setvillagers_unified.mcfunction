@@ -22,7 +22,7 @@ execute as @e[tag=basic_trader] run data modify entity @s Offers.Recipes append 
 
 execute as @e[tag=basic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"diamond", count:6}, sell:{id:"firework_rocket", count:3, components:{tooltip_display:{hidden_components:["fireworks","firework_explosion"]}, fireworks:{flight_duration:5, explosions:[{shape:"large_ball", has_trail:true, colors:[4368896,11158016,11141186], fade_colors:[43586,17066]}]}, custom_name:{text:"Long Range Firework Rocket",italic:false}, lore:[{text:"You can shoot fireworks from crossbows"}]}}}
 
-execute as @e[tag=basic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"turtle_scute", count:1}, sell:{id:"emerald", count:1}}
+execute as @e[tag=basic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"turtle_scute", count:1, components:{custom_model_data:{flags:[true]}, item_name:{translate:"item.bw.cracked_emerald"}}}, sell:{id:"emerald", count:1}}
 
 
 
@@ -34,11 +34,11 @@ execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes appe
 
 execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:8}, sell:{id:"cooked_porkchop", count:1}}
 
-execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:24}, sell:{id:"sugar", count:1, components:{custom_name:{text:"Iron Upgrade Key",italic:false,color:"gray"}, lore:["Drops after upgrade:",["+",{text:"⓪",italic:false,color:"white"}]]}}}
+execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:24}, sell:{id:"sugar", count:1, components:{custom_name:{text:"Iron Upgrade Key",italic:false,color:"gray"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["+",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}]]}}}
 
-execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:48}, buyB:{id:"diamond", count:8}, sell:{id:"ink_sac", count:1, components:{custom_name:{text:"Diamond Upgrade Key",italic:false,color:"aqua"}, lore:["Drops after upgrade:",["++",{text:"⓪",italic:false,color:"white"}],["+",{text:"①",italic:false,color:"white"}]]}}}
+execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:48}, buyB:{id:"diamond", count:8}, sell:{id:"ink_sac", count:1, components:{custom_name:{text:"Diamond Upgrade Key",italic:false,color:"aqua"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["++",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}],["+",{text:"①",font:"bw:ore_font",italic:false,color:"white"}]]}}}
 
-execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"diamond", count:24}, sell:{id:"glow_ink_sac", count:1, components:{custom_name:{text:"Emerald Upgrade Key",italic:false,color:"green"}, lore:["Drops after upgrade:",["++",{text:"⓪",italic:false,color:"white"}],["++",{text:"①",italic:false,color:"white"}],["+",{text:"②",italic:false,color:"white"}]]}}}
+execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"diamond", count:24}, sell:{id:"glow_ink_sac", count:1, components:{custom_name:{text:"Emerald Upgrade Key",italic:false,color:"green"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["++",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}],["++",{text:"①",font:"bw:ore_font",italic:false,color:"white"}],["+",{text:"②",font:"bw:ore_font",italic:false,color:"white"}]]}}}
 
 execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:4}, sell:{id:"obsidian", count:4}}
 
@@ -103,7 +103,7 @@ execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append val
 
 execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:4}, buyB:{id:"diamond", count:4}, sell:{id:"shears", count:1}}
 
-execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:16}, sell:{id:"cyan_dye", count:1, components:{custom_name:{text:"Socrates' Hemlock Drink",italic:false,color:"aqua"}, food:{can_always_eat:true, nutrition:0, saturation:0}, consumable:{animation:"drink"}, lore:["Ancient item. Deadly. Beware!"]}}}
+execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:16}, sell:{id:"cyan_dye", count:1, components:{item_name:{translate:"item.bw.deadly_drink",color:"aqua"}, custom_model_data:{flags:[true]}, food:{can_always_eat:true, nutrition:0, saturation:0}, consumable:{animation:"drink"}, lore:["Ancient item. Deadly. Beware!"]}}}
 
 execute as @e[tag=toolsmith] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:18}, sell:{id:"ghast_tear", count:1, components:{custom_name:{text:"Happy Ghast Summoner",italic:false}, lore:["Consume to summon and mount a one-ride Happy Ghast!"], food:{can_always_eat:true, nutrition:0, saturation:0}, consumable:{}}}}
 
@@ -119,7 +119,7 @@ execute if score villagerType game matches 2 as @e[tag=exotic_trader] run data m
 
 execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:4}, buyB:{id:"arrow", count:1}, sell:{id:"tipped_arrow", count:1, components:{tooltip_display:{hidden_components:["potion_contents","potion_duration_scale"]}, potion_contents:{potion:harming}, custom_name:{text:"TNT Arrow",italic:false,bold:true,color:"red"}}}}
 
-execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:3}, sell:{id:"pink_dye", count:1, components:{custom_name:{text:"§dHP Boost",italic:false}, custom_data:{hpboost:1b}}}}
+execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:3}, sell:{id:"pink_dye", count:1, components:{custom_name:{text:"§dHP Boost",italic:false}, custom_model_data:{flags:[true]}, custom_data:{hpboost:1b}}}}
 
 execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:2}, sell:{id:"splash_potion", count:1, components:{tooltip_display:{hidden_components:["potion_contents","potion_duration_scale"]}, potion_contents:{custom_color:8663322, custom_effects:[{id:"minecraft:unluck", duration:300}]}, custom_name:{text:"Potion of Banishing",italic:false}, lore:[{text:"Makes the respawn timer longer"}]}}}
 

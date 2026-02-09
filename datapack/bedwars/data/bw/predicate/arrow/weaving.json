@@ -1,0 +1,8 @@
+
+{
+    "condition": "entity_properties",
+    "entity": "this",
+    "predicate": {
+        "nbt": "{item:{components:{\"minecraft:potion_contents\":{potion:\"minecraft:weaving\"}}}}"
+    }
+}

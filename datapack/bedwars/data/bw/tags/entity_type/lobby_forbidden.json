@@ -1,0 +1,10 @@
+{
+    "values": [
+        "ender_dragon",
+        "wither",
+        "creeper",
+        "tnt",
+        "#redirectable_projectile",
+        "#impact_projectiles"
+    ]
+}

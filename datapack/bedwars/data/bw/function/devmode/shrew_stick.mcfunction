@@ -1,0 +1,1 @@
+give @s stick[enchantments={"knockback":255},custom_name={"text":"The Mighty Stick of the Shrew","italic":false}] 1

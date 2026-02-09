@@ -1,0 +1,23 @@
+{
+    "condition":"any_of",
+    "terms": [
+        {
+            "condition":"minecraft:entity_properties",
+            "entity": "this",
+            "predicate":{
+                "location": {
+                    "dimension": "bw:lobby"
+                }
+            }
+        },
+        {
+            "condition":"minecraft:entity_properties",
+            "entity": "this",
+            "predicate":{
+                "location": {
+                    "dimension": "bw:bedwars"
+                }
+            }
+        }
+    ]
+}

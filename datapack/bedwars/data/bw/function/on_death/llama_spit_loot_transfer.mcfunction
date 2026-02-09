@@ -10,8 +10,7 @@ execute store result score @s diamondToGive run execute on origin run clear @s d
 execute store result score @s emeraldToGive run execute on origin run clear @s emerald
 execute store result score @s scuteToGive run execute on origin run clear @s turtle_scute
 
-tellraw @a ["They §lhad§r ",{score:{name:"@s",objective:"ironToGive"},color:"gray"},"⓪, ",{score:{name:"@s",objective:"diamondToGive"},color:"aqua"},"① and ",{score:{name:"@s",objective:"scuteToGive"},color:"dark_green"},"+",{score:{name:"@s",objective:"emeraldToGive"},color:"green"},"②."]
-
+tellraw @a[predicate=bw:in_game] ["They",{text:" had ",italic:true},{score:{name:"@s",objective:"ironToGive"},color:"gray"},{text:"⓪",font:"bw:ore_font"},", ",{score:{name:"@s",objective:"diamondToGive"},color:"aqua"},{text:"①",font:"bw:ore_font"}," and ",{score:{name:"@s",objective:"scuteToGive"},color:"dark_green"},"+",{score:{name:"@s",objective:"emeraldToGive"},color:"green"},{text:"②",font:"bw:ore_font"},"."]
 # the nearest llama spit to the position of the llama spit itself => it will be correctly selected
 # it's impossible that two spits get conflicting positions, as luckily one player can only summon one per tick (dies at most once per tick)
 

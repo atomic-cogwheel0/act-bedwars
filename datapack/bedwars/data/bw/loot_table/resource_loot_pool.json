@@ -46,6 +46,19 @@
                 "min": 2,
                 "max": 4
               }
+            },
+            {
+              "function": "set_components",
+              "components": {
+                "item_name": {
+                  "translate": "item.bw.cracked_emerald"
+                },
+                "custom_model_data": {
+                  "flags": [
+                    true
+                  ]
+                }
+              }
             }
           ]
         },

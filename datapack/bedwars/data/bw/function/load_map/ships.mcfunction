@@ -1,5 +1,7 @@
 function bw:air_fills/fills_air_full
 
+execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:deadly_waters
+
 fill -120 1 -120 119 16 119 water replace air
 fill -120 1 -120 119 1 119 sand
 
@@ -21,10 +23,10 @@ fill -120 15 -120 119 15 119 oak_trapdoor[facing=east,half=top,open=true,waterlo
 fill -120 15 -120 119 15 119 oak_trapdoor[facing=south,half=top,open=true,waterlogged=false] replace oak_trapdoor[facing=south,half=top,open=true,waterlogged=true]
 fill -120 15 -120 119 15 119 oak_trapdoor[facing=west,half=top,open=true,waterlogged=false] replace oak_trapdoor[facing=west,half=top,open=true,waterlogged=true]
 
-execute as @e[type=item_frame] run data merge entity @s {Fixed:1b}
+execute as @e[type=item_frame,predicate=bw:in_bedwars] run data merge entity @s {Fixed:1b}
 scoreboard players set bedBreak game 144
 
-kill @e[type=item]
+kill @e[type=item,predicate=bw:in_bedwars]
 
 time set midnight
 

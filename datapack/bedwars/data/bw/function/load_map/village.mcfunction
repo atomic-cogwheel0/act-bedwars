@@ -1,6 +1,8 @@
 time set day
 function bw:air_fills/fills_air_full
 
+execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+
 place template village:emerald -20 32 -20
 
 place template village:diamond -40 23 -40
@@ -15,7 +17,7 @@ place template village:yellow_base 53 27 -71
 
 scoreboard players set bedBreak game 122
 
-kill @e[type=item]
+kill @e[type=item,predicate=bw:in_bedwars]
 
 scoreboard players set villagerType game 1
 function bw:setvillagers_unified

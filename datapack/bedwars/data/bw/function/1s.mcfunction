@@ -31,21 +31,21 @@ scoreboard players add @e[type=armor_stand, scores={GreenIsland=3..}] diamond 1
 scoreboard players add @e[type=armor_stand, scores={GreenIsland=3..}] emerald 1
 
 # summon resources when counters reach threshold
-execute if score gameOn game matches 1 if entity @a as @e[type=armor_stand, scores={iron=1..}] at @s if score @s iron > ironDelay config run summon item ~ ~ ~ {Item:{id:"iron_ingot",count:1b}}
+execute if score gameOn game matches 1 if entity @a[predicate=bw:in_game] as @e[type=armor_stand,scores={iron=1..}] at @s if score @s iron > ironDelay config run summon item ~ ~ ~ {Item:{id:"iron_ingot",count:1b}}
 execute as @e[type=armor_stand, scores={iron=1..}] if score @s iron > ironDelay config run scoreboard players set @s iron 0
 
-execute if score gameOn game matches 1 if entity @a as @e[type=armor_stand, scores={diamond=1..}] at @s if score @s diamond > diamondDelay config run summon item ~ ~ ~ {Item:{id:"diamond",count:1b}}
+execute if score gameOn game matches 1 if entity @a[predicate=bw:in_game] as @e[type=armor_stand,scores={diamond=1..}] at @s if score @s diamond > diamondDelay config run summon item ~ ~ ~ {Item:{id:"diamond",count:1b}}
 execute as @e[type=armor_stand, scores={diamond=1..}] if score @s diamond > diamondDelay config run scoreboard players set @s diamond 0
 
-execute if score gameOn game matches 1 if entity @a as @e[type=armor_stand, scores={emerald=1..}] at @s if score @s emerald > emeraldDelay config run summon item ~ ~ ~ {Item:{id:"turtle_scute",count:1b}}
+execute if score gameOn game matches 1 if entity @a[predicate=bw:in_game] as @e[type=armor_stand, scores={emerald=1..}] at @s if score @s emerald > emeraldDelay config run summon item ~ ~ ~ {Item:{id:"turtle_scute",count:1b,components:{custom_model_data:{flags:[true]},item_name:{translate:"item.bw.cracked_emerald"}}}}
 execute as @e[type=armor_stand, scores={emerald=1..}] if score @s emerald > emeraldDelay config run scoreboard players set @s emerald 0
 
 #first diamond and emerald
-execute if score time game = firstDiamond config run execute if entity @a run execute at @e[type=armor_stand, scores={diamond=1..}] run summon item ~ ~ ~ {Item:{id:"diamond",count:1b}}
-execute if score time game = firstEmerald config run execute if entity @a run execute at @e[type=armor_stand, scores={emerald=1..}] run summon item ~ ~ ~ {Item:{id:"minecraft:turtle_scute",count:1b}}
+execute if score time game = firstDiamond config run execute if entity @a[predicate=bw:in_game] run execute at @e[type=armor_stand, scores={diamond=1..}] run summon item ~ ~ ~ {Item:{id:"diamond",count:1b}}
+execute if score time game = firstEmerald config run execute if entity @a[predicate=bw:in_game] run execute at @e[type=armor_stand, scores={emerald=1..}] run summon item ~ ~ ~ {Item:{id:"minecraft:turtle_scute",count:1b,components:{custom_model_data:{flags:[true]},item_name:{translate:"item.bw.cracked_emerald"}}}}
 
-execute if score time game = firstDiamond config run tellraw @a [{text:"The first "},{text:"Diamond","bold":true,color:"aqua"},{text:" has spawned!"}]
-execute if score time game = firstEmerald config run tellraw @a [{text:"The first "},{text:"Emerald","bold":true,color:"green"},{text:" has spawned!"}]
+execute if score time game = firstDiamond config run tellraw @a[predicate=bw:in_game] [{text:"The first "},{text:"Diamond","bold":true,color:"aqua"},{text:" has spawned!"}]
+execute if score time game = firstEmerald config run tellraw @a[predicate=bw:in_game] [{text:"The first "},{text:"Emerald","bold":true,color:"green"},{text:" has spawned!"}]
 
 #################
 
@@ -53,41 +53,36 @@ execute if score time game = firstEmerald config run tellraw @a [{text:"The firs
 recipe take @a *
 
 # don't despawn items
-execute if score gameOn game matches 1 if score persistentItems config matches 1 run execute as @e[type=item] run data merge entity @s {Age:0}
+execute if score gameOn game matches 1 if score persistentItems config matches 1 run execute as @e[type=item,predicate=bw:in_bedwars] run data modify entity @s Age set value 0
 
 # bridge egg
 scoreboard players add @e[type=snowball,tag=bridge] bridge 1
-
-execute at @e[scores={bridge=2..},tag=redwool] run fill ~ ~ ~ ~1 ~-1 ~1 red_wool keep
-execute at @e[scores={bridge=2..},tag=bluewool] run fill ~ ~ ~ ~1 ~-1 ~1 blue_wool keep
-execute at @e[scores={bridge=2..},tag=greenwool] run fill ~ ~ ~ ~1 ~-1 ~1 green_wool keep
-execute at @e[scores={bridge=2..},tag=yellowwool] run fill ~ ~ ~ ~1 ~-1 ~1 yellow_wool keep
-execute at @e[scores={bridge=2..},tag=whitewool] run fill ~ ~ ~ ~1 ~-1 ~1 white_wool keep
-
-kill @e[type=snowball,scores={bridge=5..}]
+execute as @e[type=snowball,predicate=bw:in_bedwars,tag=bridge,scores={bridge=2..}] run function bw:entities/bridge_egg/fill
 
 # food supply
-execute as @a[team=!] if score gameOn game matches 1 unless entity @s[nbt={Inventory:[{Slot:8b}]}] run item replace entity @s[team=!white] hotbar.8 with beetroot[item_name="Radish",food={nutrition:6,saturation:2,can_always_eat:true}]
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] if score gameOn game matches 1 unless entity @s[nbt={Inventory:[{Slot:8b}]}] run item replace entity @s hotbar.8 with beetroot[item_name={translate:"item.bw.food"},food={nutrition:6,saturation:2,can_always_eat:true}]
 
 # spawn protection
-execute as @a[team=!] if score gameOn game matches 1 if score @s deathCalc matches 1.. run gamemode adventure @s[team=!white]
-execute as @a[team=!] if score gameOn game matches 1 if score @s deathCalc matches 1.. run effect give @s instant_health
-execute as @a[team=!] if score gameOn game matches 1 if score @s deathCalc matches ..0 run gamemode survival @s[team=!white]
-execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
-execute if score gameOn game matches 1 run gamemode spectator @a[team=white]
+execute as @a[team=!,team=!white,predicate=bw:in_game] if score gameOn game matches 1 if score @s deathCalc matches 1.. run gamemode adventure @s
+execute as @a[team=!,predicate=bw:in_game] if score gameOn game matches 1 if score @s deathCalc matches 1.. run effect give @s instant_health 1 20 true
+execute as @a[team=!,team=!white,predicate=bw:in_game] if score gameOn game matches 1 if score @s deathCalc matches ..0 run gamemode survival @s
 
-execute as @a[x=-120,y=-64,z=-120,dx=240,dy=64,dz=240] run effect give @s resistance 2 42 true
+execute if score gameOn game matches 1 run gamemode spectator @a[team=white,predicate=bw:in_game]
 
-execute as @a[team=!] run execute as @s[team=!white] store result score @s upgrade1 run clear @s sugar 0
+execute as @a[predicate=bw:in_lobby] run effect give @s resistance 2 42 true
+execute if score gameOn game matches 0 as @a[predicate=bw:in_lobby] run effect give @s saturation 2 42 true
+
+# upgrades
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade1 run clear @s sugar 0
 execute as @a run execute if score @s upgrade1 matches 1.. run function bw:upgrade/island1
 
-execute as @a[team=!] run execute as @s[team=!white] store result score @s upgrade2 run clear @s ink_sac 0
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade2 run clear @s ink_sac 0
 execute as @a run execute if score @s upgrade2 matches 1.. run function bw:upgrade/island2
 
-execute as @a[team=!] run execute as @s[team=!white] store result score @s upgrade3 run clear @s glow_ink_sac 0
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade3 run clear @s glow_ink_sac 0
 execute as @a run execute if score @s upgrade3 matches 1.. run function bw:upgrade/island3
 
-execute as @a[team=!] run execute as @s[team=!white] store result score @s alarmBought run clear @s nether_star
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s alarmBought run clear @s nether_star
 execute as @a run execute if score @s alarmBought matches 1.. run function bw:upgrade/bed_alarm
 
 # respawning players with a delay
@@ -96,14 +91,16 @@ execute as @a[team=blue] if score @s deathCalc matches 0 run tp @s @e[type=armor
 execute as @a[team=green] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=GreenSpawn, limit=1]
 execute as @a[team=yellow] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=YellowSpawn, limit=1]
 
-execute as @a[team=!] if score @s deathCalc matches 1.. at @s run playsound entity.experience_orb.pickup ambient @s[team=!white] ~ ~ ~ 0.3
-execute as @a[team=!] if score @s deathCalc matches 1.. run title @s[team=!white] actionbar [{text:"Respawning in "},{score:{name:"@s",objective:"deathCalc"},color:"yellow"},{text:"..."}]
-execute as @a[team=!] if score @s deathCalc matches 0 run title @s[team=!white] actionbar [{text:""}]
+execute as @a[team=!,team=!white] if score @s deathCalc matches 1.. at @s run playsound entity.experience_orb.pickup ambient @s ~ ~ ~ 0.3
+execute as @a[team=!,team=!white] if score @s deathCalc matches 1.. run title @s actionbar [{text:"Respawning in "},{score:{name:"@s",objective:"deathCalc"},color:"yellow"},{text:"..."}]
+execute as @a[team=!,team=!white] if score @s deathCalc matches 0 run title @s actionbar [{text:""}]
 
-execute if score gameOn game matches 1 as @a run execute if score @s deathCalc matches 0 run effect give @s saturation 1 1 true
-execute if score gameOn game matches 1 as @a run execute if score @s deathCalc matches 0 run effect give @s instant_health 1 2 true
+execute if score gameOn game matches 1 as @a[predicate=bw:in_game] run execute if score @s deathCalc matches 0 run effect give @s saturation 1 1 true
+execute if score gameOn game matches 1 as @a[predicate=bw:in_game] run execute if score @s deathCalc matches 0 run effect give @s instant_health 1 2 true
 
 scoreboard players remove @a deathCalc 1
+
+execute as @a[team=!,predicate=bw:in_game] at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
 # border handling
 execute store result score borderSize game run worldborder get
@@ -134,10 +131,10 @@ scoreboard players operation playerCount game += inblue game
 scoreboard players operation playerCount game += ingreen game
 scoreboard players operation playerCount game += inyellow game
 
-execute if score gameOn game matches 1 if score inyellow game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=red,limit=1] run tellraw @a [{text:"The red team won!",color:"red"}]
-execute if score gameOn game matches 1 if score inred game matches 0 if score inyellow game matches 0 if score ingreen game matches 0 as @a[team=blue,limit=1] run tellraw @a [{text:"The blue team won!",color:"blue"}]
-execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score inyellow game matches 0 as @a[team=green,limit=1] run tellraw @a [{text:"The green team won!",color:"green"}]
-execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=yellow,limit=1] run tellraw @a [{text:"The yellow team won!",color:"yellow"}]
+execute if score gameOn game matches 1 if score inyellow game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=red,limit=1] run tellraw @a[predicate=bw:in_game] [{text:"The red team won!",color:"red"}]
+execute if score gameOn game matches 1 if score inred game matches 0 if score inyellow game matches 0 if score ingreen game matches 0 as @a[team=blue,limit=1] run tellraw @a[predicate=bw:in_game] [{text:"The blue team won!",color:"blue"}]
+execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score inyellow game matches 0 as @a[team=green,limit=1] run tellraw @a[predicate=bw:in_game] [{text:"The green team won!",color:"green"}]
+execute if score gameOn game matches 1 if score inred game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=yellow,limit=1] run tellraw @a[predicate=bw:in_game] [{text:"The yellow team won!",color:"yellow"}]
 
 execute if score gameOn game matches 1 if score inyellow game matches 0 if score inblue game matches 0 if score ingreen game matches 0 as @a[team=red] run function bw:victory
 execute if score gameOn game matches 1 if score inred game matches 0 if score inyellow game matches 0 if score ingreen game matches 0 as @a[team=blue] run function bw:victory
@@ -177,52 +174,52 @@ execute if score yellowAlarm game matches 1.. as @a[team=!yellow] at @s if entit
 # health boost
 execute as @a store result score @s hpboost run clear @s pink_dye[custom_data={hpboost:1b}] 0
 
-execute unless score hardcore game matches 1 as @a[scores={hpboost=0}] run attribute @s max_health base set 20
-execute unless score hardcore game matches 1 as @a[scores={hpboost=1}] run attribute @s max_health base set 22
-execute unless score hardcore game matches 1 as @a[scores={hpboost=2..}] run attribute @s max_health base set 24
+execute unless score hardcore game matches 1 as @a[predicate=bw:in_game] run function bw:hp/set_normal
+execute if score hardcore game matches 1 as @a[predicate=bw:in_game] run function bw:hp/set_hardcore
+execute as @a[predicate=!bw:in_game] run function bw:hp/reset
+#execute if score gameOn game matches 0 as @a[predicate=bw:in_game] run function bw:hp/reset
 
-execute if score hardcore game matches 1 as @a[scores={hpboost=0}] run attribute @s max_health base set 1
-execute if score hardcore game matches 1 as @a[scores={hpboost=1}] run attribute @s max_health base set 2
-execute if score hardcore game matches 1 as @a[scores={hpboost=2..}] run attribute @s max_health base set 3
+# potions
+# functions should run once when potionBig/Small changes (tracked in potion*Applied)
 
-# potions of big and small
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s scale base set 2
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s movement_speed base set 0.082
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s block_break_speed base set 1.25
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s block_interaction_range base set 8
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s step_height base set 1.2
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run effect give @s resistance 2 3 true
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s jump_strength base set 0.8
+# remove potion effects when neither potion is applied
+execute as @a[tag=!potionBig] unless entity @s[tag=!potionBigApplied] run function bw:potions/remove_big
+execute as @a[tag=!potionSmall] unless entity @s[tag=!potionSmallApplied] run function bw:potions/remove_small
+tag @a[tag=!potionBig,tag=potionBigApplied] remove potionBigApplied
+tag @a[tag=!potionSmall,tag=potionSmallApplied] remove potionSmallApplied
 
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] run attribute @s scale base set 0.5
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] run attribute @s movement_speed base set 0.114
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] run attribute @s entity_interaction_range base set 3.75
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] run attribute @s block_interaction_range base set 3.75
-execute if score gameOn game matches 1 as @a[team=!] if entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] run attribute @s step_height base set 0.3
+# potion of big
+execute if score gameOn game matches 1 as @a[team=!,team=!white,predicate=bw:effect/infested,predicate=bw:in_game] run tag @s add potionBig
+execute as @a[tag=potionBig,predicate=!bw:in_game] run tag @s remove potionBig
+execute as @a[tag=potionBig,predicate=!bw:effect/infested] run tag @a remove potionBig
 
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s scale base set 1
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s movement_speed base set 0.1
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s entity_interaction_range base set 5
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s block_interaction_range base set 5
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s block_break_speed base set 1
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s step_height base set 0.6
-execute if score gameOn game matches 1 as @a[team=!] unless entity @s[nbt={active_effects:[{id:"minecraft:luck"}]}] unless entity @s[nbt={active_effects:[{id:"minecraft:infested"}]}] run attribute @s jump_strength base set 0.42
+execute as @a[tag=potionBig,tag=!potionBigApplied] run function bw:potions/big
+tag @a[tag=potionBig,tag=!potionBigApplied] add potionBigApplied
+
+# potion of small
+execute if score gameOn game matches 1 as @a[team=!,team=!white,predicate=bw:effect/luck,predicate=bw:in_game] run tag @s add potionSmall
+execute as @a[tag=potionSmall,predicate=!bw:in_game] run tag @s remove potionSmall
+execute as @a[tag=potionSmall,predicate=!bw:effect/luck] run tag @a remove potionSmall
+
+execute as @a[tag=potionSmall,tag=!potionSmallApplied] run function bw:potions/small
+tag @a[tag=potionSmall,tag=!potionSmallApplied] add potionSmallApplied
 
 # rescue stuck villagers
-execute as @e[type=villager] at @s if block ~ ~ ~ minecraft:obsidian if block ~ ~1 ~ obsidian run tp ~ ~1 ~
+execute as @e[type=villager,predicate=bw:in_bedwars] at @s if block ~ ~ ~ obsidian if block ~ ~1 ~ obsidian run tp ~ ~1 ~
 
 # update time
 execute if score gameOn game matches 1 run scoreboard players add time game 1
 scoreboard players operation Time GameBar = time game
 
-execute as @e[type=minecraft:happy_ghast,nbt={equipment:{body:{count:1,id:"minecraft:orange_harness"}}}] run attribute @s flying_speed base set 0.1
-execute as @e[type=minecraft:happy_ghast,nbt={equipment:{body:{count:1,id:"minecraft:orange_harness"}}}] at @s run summon minecraft:arrow ~ ~ ~ {item:{id:"minecraft:arrow",components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
+execute as @e[type=happy_ghast,predicate=bw:in_bedwars,nbt={equipment:{body:{count:1,id:"minecraft:orange_harness"}}}] run attribute @s flying_speed modifier add bw:destructive_happy_ghast 1 add_multiplied_base
+execute as @e[type=happy_ghast,predicate=bw:in_bedwars,nbt={equipment:{body:{count:1,id:"minecraft:orange_harness"}}}] at @s run summon arrow ~ ~ ~ {item:{id:"minecraft:arrow",components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
 
 # refresh map name display
 function bw:map_update
 
 # refresh bossbar
-execute unless score borderStarted game matches 1 run execute store result bossbar bw:border_bar value run scoreboard players get border game
+execute unless score borderStarted game matches 1 run scoreboard players operation border bossbarCalc = borderStartTime config
+execute unless score borderStarted game matches 1 run execute store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= border game
 execute if score borderStarted game matches 1 store result score border bossbarCalc run worldborder get
 execute if score borderStarted game matches 1 unless score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= bedBreak game
 execute if score borderStarted game matches 1 if score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= borderMinSize config

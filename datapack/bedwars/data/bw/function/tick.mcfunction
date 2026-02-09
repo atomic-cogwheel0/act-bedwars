@@ -1,54 +1,30 @@
 # Wiping the map of unwanted entities
 
 # lobby
-kill @e[type=snowball,x=-120,y=-64,z=-120,dx=240,dy=64,dz=240]
-kill @e[type=arrow,x=-120,y=-64,z=-120,dx=240,dy=64,dz=240]
-kill @e[type=tnt,x=-120,y=-64,z=-120,dx=240,dy=64,dz=240]
-kill @e[type=fireball,x=-120,y=-64,z=-120,dx=240,dy=64,dz=240]
+kill @e[type=#bw:lobby_forbidden,predicate=bw:in_lobby]
 
-# too high
-kill @e[type=snowball,x=-120,y=160,z=-120,dx=240,dy=160,dz=240]
-#kill @e[type=arrow,x=-120,y=160,z=-120,dx=240,dy=160,dz=240]
+# bridge egg too high or outside border
+execute in bw:bedwars run kill @e[type=snowball,tag=bridge,predicate=!bw:inside_map]
 
-# bridge egg far outside border
-kill @e[type=snowball,x=-400,y=-64,z=-400,dx=279,dy=384,dz=639]
-kill @e[type=snowball,x=-400,y=-64,z=-400,dx=639,dy=384,dz=279]
-
-kill @e[type=snowball,x=400,y=-64,z=400,dx=-281,dy=384,dz=-641]
-kill @e[type=snowball,x=400,y=-64,z=400,dx=-641,dy=384,dz=-281]
-
-kill @e[type=item,nbt={Item:{id:"minecraft:item_frame"}}]
+#execute in bw:bedwars run kill @e[type=item,predicate=bw:in_bedwars,nbt={Item:{id:"minecraft:item_frame"}}]
 
 # Set banishing score, goes down rapidly after effect ends (by countdown or death)
-execute as @a[nbt={active_effects:[{id:"minecraft:unluck"}]}] unless entity @s[scores={banishing=20..}] run scoreboard players add @s banishing 1
-scoreboard players remove @a[scores={banishing=1..},nbt=!{active_effects:[{id:"minecraft:unluck"}]}] banishing 1
+execute as @a[predicate=bw:effect/unluck] unless entity @s[scores={banishing=20..}] run scoreboard players add @s banishing 1
+scoreboard players remove @a[scores={banishing=1..},predicate=!bw:effect/unluck] banishing 1
 
 # Kills for out-of-map players
 #execute if score gameOn game matches 1 as @e[type=player,x=-160,y=1,z=-160,dx=320,dy=3,dz=320,team=!] run kill @s[team=!white]
-execute as @e[type=player,x=-160,y=-192,z=-160,dx=320,dy=64,dz=320] run damage @s 2000 out_of_world
+execute in bw:lobby as @e[type=player,x=-160,y=-192,z=-160,dx=320,dy=64,dz=320,predicate=bw:in_game] run damage @s 2000 out_of_world
 
-execute if score gameOn game matches 1 as @e[type=player,x=-160,y=1,z=-160,dx=320,dy=3,dz=320,team=!white] run damage @s[team=!] 2000 dragon_breath
+# fell down from the map
+execute in bw:bedwars if score gameOn game matches 1 as @e[type=player,team=!white,team=!,x=-160,y=1,z=-160,dx=320,dy=3,dz=320,predicate=bw:in_bedwars] run damage @s 2000 bw:fell_off
+
+# Ships map poisonous water
+execute in bw:bedwars if score map game matches 1 if score gameOn game matches 1 as @a[team=!white,team=!,x=-120,y=0,z=-120,dx=240,dy=320,dz=240,predicate=bw:in_bedwars] at @s if block ~ ~ ~ water if block ~ ~-1 ~ water run damage @s 3 bw:fell_into_water
+execute in bw:bedwars if score map game matches 1 if score gameOn game matches 1 as @a[team=!white,team=!,x=-120,y=0,z=-120,dx=240,dy=320,dz=240,predicate=bw:in_bedwars] at @s if block ~ ~ ~ water if block ~ ~1 ~ water run damage @s 3 bw:fell_into_water
 
 # Special arrows
-execute at @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}},inBlockState:{}}] run summon tnt ~ ~ ~ {fuse:0}
-kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}},inBlockState:{}}]
-
-execute at @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:healing"}}},inBlockState:{}}] run setblock ~ ~ ~ fire keep
-kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:healing"}}},inBlockState:{}}]
-
-execute at @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:fire_resistance"}}},inBlockState:{}}] run summon vex
-kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:fire_resistance"}}},inBlockState:{}}]
-
-# lovely bunch of arrows
-execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:invisibility"}}},inBlockState:{}},scores={}] at @s run function bw:arrow/bunchaarrows
-kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:invisibility"}}},inBlockState:{}},scores={idk=5..}]
-
-# summon one arrow each tick while in flight (chaos arrow)
-execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weakness"}}}},scores={}] at @s run summon arrow ~ ~ ~ {item:{id:"minecraft:arrow",components:{"minecraft:potion_contents":{potion:"minecraft:harming"}}}}
-kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weakness"}}},inBlockState:{}}]
-
-execute as @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weaving"}}},inBlockState:{}},scores={}] at @s run function bw:arrow/prison
-kill @e[type=arrow,nbt={item:{components:{"minecraft:potion_contents":{potion:"minecraft:weaving"}}},inBlockState:{}}]
+execute as @e[type=arrow,predicate=bw:in_bedwars] run function bw:arrow/handler
 
 # Bed break detection
 execute at @e[type=armor_stand,tag=YellowBed] unless block ~ ~ ~ yellow_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/yellow
@@ -57,65 +33,70 @@ execute at @e[type=armor_stand,tag=BlueBed] unless block ~ ~ ~ blue_bed unless b
 execute at @e[type=armor_stand,tag=GreenBed] unless block ~ ~ ~ green_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/green
 
 # Bridge egg
-#execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin run say alma
-execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin if entity @s[team=red] run summon snowball ~ ~ ~ {Tags:["bridge","redwool"],NoGravity:1b}
-execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin if entity @s[team=blue] run summon snowball ~ ~ ~ {Tags:["bridge","bluewool"],NoGravity:1b}
-execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin if entity @s[team=green] run summon snowball ~ ~ ~ {Tags:["bridge","greenwool"],NoGravity:1b}
-execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin if entity @s[team=yellow] run summon snowball ~ ~ ~ {Tags:["bridge","yellowwool"],NoGravity:1b}
-execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] at @s on origin unless entity @s[team=!white,team=!] run summon snowball ~ ~ ~ {Tags:["bridge","whitewool"],NoGravity:1b}
-
-execute as @e[type=egg,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}},nbt=!{CustomNameVisible:1b}] run data merge entity @s {CustomName:"Bridge Egg",CustomNameVisible:1b}
+tag @e[type=egg,tag=!bridge_spawner,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] add bridge_spawner
+execute as @e[type=egg,tag=bridge_spawner] at @s run function bw:entities/bridge_egg/tick
 
 # Fireball
-execute at @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] run summon fireball ~ ~ ~ {Tags:["fireball"], NoGravity:1b,ExplosionPower:4}
-#execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s run data modify entity @n[type=fireball] Motion set from entity @s Motion
-execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s store result entity @n[type=fireball] Motion[0] double 0.00001 run data get entity @s Motion[0] 5264
-execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s store result entity @n[type=fireball] Motion[1] double 0.00001 run data get entity @s Motion[1] 5264
-execute as @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s store result entity @n[type=fireball] Motion[2] double 0.00001 run data get entity @s Motion[2] 5264
-#execute as @e[type=fireball] store result entity @s acceleration_power double 0.00001 run data get entity @s Motion[0] 5264
-kill @e[type=snowball,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}]
+# don't check bridge snowball NBT to improve performance
+execute as @e[type=snowball,tag=!bridge,nbt={Item:{components:{"minecraft:custom_data":{fireball:1b}}}}] at @s run function bw:entities/fireball
 
 # Death reset
-execute as @a[scores={deathReset=1..}] run function bw:on_death/death_reset
+execute as @a[scores={deathReset=1..},predicate=bw:in_game] run function bw:on_death/death_reset
 
 # Villagers' facing directions
-execute as @e[type=villager] at @s unless entity @e[type=shulker,limit=1,sort=nearest,distance=..5] run rotate @s facing entity @p
-execute as @e[type=villager] at @s if entity @e[type=shulker,limit=1,sort=nearest,distance=..5] run rotate @s facing entity @n[type=shulker]
-execute as @e[type=wandering_trader] at @s run rotate @s facing entity @p
+execute as @e[type=#bw:trader,predicate=bw:in_game] at @s unless entity @e[type=shulker,distance=..5] run rotate @s facing entity @p
+execute as @e[type=#bw:trader,predicate=bw:in_game] at @s if entity @n[type=shulker,distance=..5] run rotate @s facing entity @n[type=shulker]
 
 # Set gamemode when someone rejoins
 execute as @a[tag=!joined] run scoreboard players set @s leave 1
 tag @a[tag=!joined] add joined
 
-execute if score gameOn game matches 0 as @a[scores={leave=1..}] run execute at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 180 0
-execute as @a[scores={leave=1..},team=] run gamemode adventure @s
-execute as @a[scores={leave=1..},team=] run team join white
+# enable the trigger for everyone :)
+scoreboard players enable @a[scores={leave=1..}] tpToBw
+
+execute unless score noTP config matches 1 if score gameOn game matches 0 as @a[scores={leave=1..}] run execute at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 270 0
+execute unless score noTP config matches 1 as @a[scores={leave=1..},team=] run gamemode adventure @s
+execute unless score noTP config matches 1 as @a[scores={leave=1..},team=] run team join white
+
+execute if score noTP config matches 1 as @a[scores={leave=1..}] run tellraw @s "Bedwars available!"
+execute if score noTP config matches 1 as @a[scores={leave=1..}] run tellraw @s "Join from the pause menu (TP to Bedwars option)"
+
 scoreboard players set @a[scores={leave=1..}] leave 0
 
-# Safe mode, set gamemode in lobby
-execute if score gameOn game matches 0 as @a[x=-120,y=-64,z=-120,dx=240,dy=64,dz=240] if score safeMode config matches 1 run gamemode adventure @s[team=!]
+# Teleport to Lobby dialog trigger
+execute if score gameOn game matches 0 as @a[scores={tpToBw=1}] at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 270 0
+execute if score gameOn game matches 1 as @a[scores={tpToBw=1},predicate=!bw:in_bedwars] at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 270 0
+execute if score gameOn game matches 1 as @a[scores={tpToBw=1},predicate=bw:in_bedwars] run tellraw @s {text: "Game running! Lobby unavailable for you",color:"red"}
+gamemode adventure @a[scores={tpToBw=1}]
+team join white @a[scores={tpToBw=1}]
+# Teleport to Game Map
+execute if score gameOn game matches 0 as @a[scores={tpToBw=2}] in bw:bedwars run tp @s 0 128 0
+execute if score gameOn game matches 0 as @a[scores={tpToBw=2}] run effect give @s slow_falling 3 0 true
+execute if score gameOn game matches 1 as @a[scores={tpToBw=2}] run tellraw @s {text: "Game running! Game Map unavailable",color:"red"}
 
-# Ships map poisonous water
-execute if score map game matches 1 if score gameOn game matches 1 as @a[x=-120,y=0,z=-120,dx=240,dy=320,dz=240,team=!white] at @s[team=!] if block ~ ~ ~ water if block ~ ~-1 ~ water run damage @s 3 drown
-execute if score map game matches 1 if score gameOn game matches 1 as @a[x=-120,y=0,z=-120,dx=240,dy=320,dz=240,team=!white] at @s[team=!] if block ~ ~ ~ water if block ~ ~1 ~ water run damage @s 3 drown
+scoreboard players enable @a[scores={tpToBw=1..}] tpToBw
+scoreboard players set @a[scores={tpToBw=1..}] tpToBw 0
+
+# Safe mode, set gamemode in lobby
+execute if score gameOn game matches 0 if score safeMode config matches 1 as @a[team=!,predicate=bw:in_lobby] run gamemode adventure @s
 
 # Parkour master
 execute as @e[tag=Parkour] at @s run scoreboard players set @a[distance=..2,scores={parkourMessage=0}] parkourMessage 1
 execute as @e[tag=Parkour] at @s run scoreboard players set @a[distance=2..] parkourMessage 0
 execute as @a[scores={parkourMessage=1}] run tellraw @s {text:"Well done! You found me. Continue by jumping on the animals.",color:"gold"}
-execute as @a[scores={parkourMessage=1}] at @s run playsound minecraft:entity.villager.yes ambient @s ~ ~ ~
+execute as @a[scores={parkourMessage=1}] at @s run playsound entity.villager.yes ambient @s ~ ~ ~
 execute as @a[scores={parkourMessage=1}] run scoreboard players set @s parkourMessage 2
 
 # Cyanide
-execute as @a[scores={cyanide=1..}] run damage @s 2000 cramming
+execute as @a[scores={cyanide=1..}] run damage @s 2000 bw:dignity
 
 # Double jump
-execute as @e[tag=jump,type=minecraft:armor_stand] run kill @s
+execute as @e[type=armor_stand,tag=jump] run kill @s
 
-execute if score doubleJumpEnabled config matches 1 if score gameOn game matches 1 as @a[tag=!has_jumped,tag=can_jump] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type_specific:{type:"minecraft:player",input:{jump:1b},gamemode:["survival"]},flags:{is_on_ground:0b,is_flying:0b}}} unless items entity @s hotbar.* wind_charge store result score @s doJump run clear @s wind_charge 2
+execute if score doubleJumpEnabled config matches 1 if score gameOn game matches 1 as @a[tag=!has_jumped,tag=can_jump,predicate=bw:in_bedwars] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type_specific:{type:"minecraft:player",input:{jump:1b},gamemode:["survival"]},flags:{is_on_ground:0b,is_flying:0b}}} unless items entity @s hotbar.* wind_charge store result score @s doJump run clear @s wind_charge 2
 execute as @a[scores={doJump=1..}] at @s run summon armor_stand ~ ~-.15 ~ {Invisible:1b,Silent:1b,NoGravity:1b,Tags:["jump"]}
 execute as @a[scores={doJump=1..}] run effect give @s jump_boost infinite 255 true
-effect give @e[type=minecraft:armor_stand,tag=jump] wind_charged infinite 5 true
+effect give @e[type=armor_stand,tag=jump] wind_charged infinite 5 true
 execute as @a[tag=!has_jumped,tag=can_jump,scores={doJump=1..}] run tag @s add has_jumped
 execute as @a[scores={doJump=1..}] run scoreboard players set @s doJump 0
 
@@ -123,23 +104,9 @@ execute as @a[tag=has_jumped] if predicate {condition:"minecraft:entity_properti
 execute as @a[tag=has_jumped] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_on_ground:1b}}} run tag @s remove has_jumped
 
 execute as @a[tag=can_jump] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{flags:{is_on_ground:1b}}} run tag @s remove can_jump
-
 execute as @a[tag=!has_jumped] if predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{type_specific:{type:"minecraft:player",input:{jump:0b}},flags:{is_on_ground:0b,is_flying:0b}}} run tag @s add can_jump
 
 # Happy ghast
-execute as @a[scores={ghastSpawning=1..},team=red] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:red_harness"}}}
-execute as @a[scores={ghastSpawning=1..},team=blue] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:blue_harness"}}}
-execute as @a[scores={ghastSpawning=1..},team=yellow] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:yellow_harness"}}}
-execute as @a[scores={ghastSpawning=1..},team=green] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:green_harness"}}}
+execute as @a[scores={ghastSpawning=1..}] at @s run function bw:entities/happy_ghast/summon
 
-execute as @a[scores={ghastSpawning=1..},team=white] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:white_harness"}}}
-execute as @a[scores={ghastSpawning=1..},team=] at @s run summon minecraft:happy_ghast ~ ~ ~ {equipment:{body:{count:1,id:"minecraft:light_gray_harness"}}}
-
-execute as @a[scores={ghastSpawning=1..}] at @s run attribute @n[type=minecraft:happy_ghast] scale base set 0.5
-execute as @a[scores={ghastSpawning=1..}] at @s run ride @s mount @n[type=minecraft:happy_ghast]
-execute as @a[scores={ghastSpawning=1..}] at @s run scoreboard players set @s ghastSpawning 0
-
-execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} run data merge entity @s {Silent:1b}
-execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} at @s run playsound entity.breeze.inhale ambient @a ~ ~ ~ 1
-execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} run tp 0 720 0
-execute as @e[type=happy_ghast,nbt=!{still_timeout:10}] unless predicate {condition:"minecraft:entity_properties",entity:"this",predicate:{passenger:{type:"player"}}} run kill @s
+execute as @e[type=happy_ghast,tag=player_spawned,predicate=!bw:happy_ghast_valid] at @s run function bw:entities/happy_ghast/remove

@@ -1,0 +1,7 @@
+{
+    "message_id": "fell_into_water",
+    "scaling": "never",
+    "exhaustion": 0,
+    "death_message_type": "default",
+    "effects": "drowning"
+}

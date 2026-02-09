@@ -1,7 +1,7 @@
 execute at @a run playsound entity.ender_dragon.ambient ambient @a ~ ~ ~
 scoreboard players set borderStarted game 1
-execute as @a[team=!] run give @s[team=!white] crossbow[unbreakable={}]
-execute as @a[team=!] run give @s[team=!white] trial_key
+execute as @a[team=!,predicate=bw:in_game] run give @s[team=!white] crossbow[unbreakable={}]
+execute as @a[team=!,predicate=bw:in_game] run give @s[team=!white] trial_key
 
 bossbar set bw:border_bar name "Beds break soon..."
 bossbar set bw:border_bar color yellow

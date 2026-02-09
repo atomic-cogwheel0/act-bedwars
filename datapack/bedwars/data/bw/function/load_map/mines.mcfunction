@@ -1,7 +1,6 @@
 function bw:stone_fills/fills_stone_full
-# is this needed?
-#fill -120 1 -120 119 16 119 water
-#fill -120 1 -120 119 1 119 sand
+
+execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
 
 #function bw:stone_fills/fills_stone9
 place template mines:main_mineshaft -23 46 -23
@@ -16,7 +15,7 @@ place template mines:blue_base 50 52 50 counterclockwise_90
 
 scoreboard players set bedBreak game 106
 
-kill @e[type=item]
+kill @e[type=item,predicate=bw:in_bedwars]
 time set noon
 
 scoreboard players set villagerType game 2

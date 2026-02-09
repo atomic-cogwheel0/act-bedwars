@@ -1,6 +1,8 @@
 time set 14000
 function bw:air_fills/fills_air_full
 
+execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+
 place template graveyard:emerald -24 46 -24
 
 place template graveyard:diamond -65 46 -40 counterclockwise_90
@@ -17,14 +19,14 @@ function bw:load_map/graveyard_scattered_islands
 
 scoreboard players set bedBreak game 156
 
-kill @e[type=item]
+kill @e[type=item,predicate=bw:in_bedwars]
 
-execute as @e[tag=upgraded_trader] run data merge entity @s {VillagerData:{type:"taiga"}}
-execute as @e[tag=nitwit] run data merge entity @s {VillagerData:{type:"taiga"}}
-execute as @e[tag=fletcher] run data merge entity @s {VillagerData:{type:"taiga"}}
-execute as @e[tag=weaponsmith] run data merge entity @s {VillagerData:{type:"taiga"}}
-execute as @e[tag=toolsmith] run data merge entity @s {VillagerData:{type:"taiga"}}
-execute as @e[tag=armorer] run data merge entity @s {VillagerData:{type:"taiga"}}
+execute as @e[type=#bw:trader,tag=upgraded_trader] run data merge entity @s {VillagerData:{type:"taiga"}}
+execute as @e[type=#bw:trader,tag=nitwit] run data merge entity @s {VillagerData:{type:"taiga"}}
+execute as @e[type=#bw:trader,tag=fletcher] run data merge entity @s {VillagerData:{type:"taiga"}}
+execute as @e[type=#bw:trader,tag=weaponsmith] run data merge entity @s {VillagerData:{type:"taiga"}}
+execute as @e[type=#bw:trader,tag=toolsmith] run data merge entity @s {VillagerData:{type:"taiga"}}
+execute as @e[type=#bw:trader,tag=armorer] run data merge entity @s {VillagerData:{type:"taiga"}}
 
 scoreboard players set villagerType game 1
 function bw:setvillagers_unified

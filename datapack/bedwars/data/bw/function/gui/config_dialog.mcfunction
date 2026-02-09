@@ -1,6 +1,8 @@
 
 execute store result storage bw:config_macro this.borderStartTime int 1 run scoreboard players get borderStartTime config
 execute store result storage bw:config_macro this.borderAdvanceDelay int 1 run scoreboard players get borderAdvanceDelay config
+execute store result storage bw:config_macro this.borderAdvanceDuration int 1 run scoreboard players get borderAdvanceDuration config
+execute store result storage bw:config_macro this.borderAdvanceSize int 1 run scoreboard players get borderAdvanceSize config
 execute store result storage bw:config_macro this.borderMinSize byte 1 run scoreboard players get borderMinSize config
 execute store result storage bw:config_macro this.respawnDelayNormal int 1 run scoreboard players get respawnDelayNormal config
 execute store result storage bw:config_macro this.respawnDelayBanished int 1 run scoreboard players get respawnDelayBanished config
@@ -12,5 +14,7 @@ execute store result storage bw:config_macro this.firstEmerald int 1 run scorebo
 execute store result storage bw:config_macro this.persistentItems byte 1 run scoreboard players get persistentItems config
 execute store result storage bw:config_macro this.doubleJumpEnabled byte 1 run scoreboard players get doubleJumpEnabled config
 execute store result storage bw:config_macro this.enableBossbar byte 1 run scoreboard players get enableBossbar config
+
+execute store result storage bw:config_macro this.hardcoreLever byte 1 run scoreboard players get hardcoreLever game
 
 function bw:gui/config_dialog_inner with storage bw:config_macro this

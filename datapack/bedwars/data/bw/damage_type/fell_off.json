@@ -1,0 +1,7 @@
+{
+    "message_id": "fell_off",
+    "scaling": "never",
+    "exhaustion": 0,
+    "death_message_type": "default",
+    "effects": "hurt"
+}

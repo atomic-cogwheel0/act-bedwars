@@ -1,1 +1,1 @@
-execute unless data storage world created run function bw:init/init
+execute unless data storage world created in bw:lobby run function bw:init/init

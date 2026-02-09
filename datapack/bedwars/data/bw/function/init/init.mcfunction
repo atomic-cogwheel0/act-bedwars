@@ -67,10 +67,26 @@ scoreboard objectives add doJump dummy
 
 scoreboard objectives add bossbarCalc dummy
 
+scoreboard objectives add tpToBw trigger
+
+# default scoreboard values
+
+scoreboard players set Map GameBar -1
+scoreboard players set Hardcore GameBar -1
+scoreboard players set Map wins -1
+scoreboard players set Hardcore wins -1
+
+scoreboard players set map game 0
+scoreboard players set gameOn game 0
+scoreboard players set hardcore game 0
+
 # default config
 function bw:init/default_config
 
 scoreboard players set safeMode config 1
+
+# don't edit unless you know you want to
+scoreboard players set noTP config 0
 
 scoreboard objectives setdisplay sidebar wins
 
@@ -133,19 +149,22 @@ team modify green prefix "[green] "
 team modify white suffix " (ghost)"
 say "teams set"
 
-kill @e[type=!player]
+execute in bw:bedwars run forceload add -128 -128 127 127
+execute in bw:lobby run forceload add -128 -128 127 127
 
-place template bw:lobby1 -16 -40 -11
-place template bw:lobby2 12 -40 -11 none none 1 0 strict
+execute in bw:lobby run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
 
-execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
+place template bw:lobby1 -16 -55 -11
+place template bw:lobby2 12 -55 -11 none none 1 0 strict
+
+execute if score noTP config matches 0 in bw:lobby at @e[type=armor_stand,tag=Lobby,limit=1] run setworldspawn ~ ~ ~
 
 gamerule commandModificationBlockLimit 10000000
 
-forceload add -10 -10 10 10
-
 gamerule announceAdvancements false
 gamerule commandBlockOutput false
+gamerule logAdminCommands false
+gamerule sendCommandFeedback false
 gamerule doDaylightCycle false
 gamerule doWeatherCycle false
 gamerule doImmediateRespawn true

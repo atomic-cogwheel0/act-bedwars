@@ -1,4 +1,4 @@
-$dialog show @a { \
+$dialog show @s { \
   "type": "minecraft:multi_action", \
   "title": "Bedwars Game Configuration", \
   "external_title": "Configure...", \
@@ -19,6 +19,14 @@ $dialog show @a { \
   ], \
   "inputs": [ \
     { \
+      "type": "minecraft:boolean", \
+      "key": "hardcoreLever", \
+      "label": { \
+        "text": "Hardcore Mode" \
+      }, \
+      "initial": $(hardcoreLever) \
+    }, \
+    { \
       "type": "minecraft:number_range", \
       "key": "borderStartTime", \
       "label": "Time until Border Starts", \
@@ -37,6 +45,26 @@ $dialog show @a { \
       "end": 600, \
       "step": 20, \
       "initial": $(borderAdvanceDelay) \
+    }, \
+    { \
+      "type": "minecraft:number_range", \
+      "key": "borderAdvanceDuration", \
+      "label": "Border Shrinking Duration", \
+      "label_format": "%s: %s seconds", \
+      "start": 0, \
+      "end": $(borderAdvanceDelay), \
+      "step": 5, \
+      "initial": $(borderAdvanceDuration) \
+    }, \
+    { \
+      "type": "minecraft:number_range", \
+      "key": "borderAdvanceSize", \
+      "label": "Border Shrinking Size", \
+      "label_format": "%s: %s blocks", \
+      "start": 2, \
+      "end": 26, \
+      "step": 2, \
+      "initial": $(borderAdvanceSize) \
     }, \
     { \
       "type": "minecraft:number_range", \
@@ -138,7 +166,7 @@ $dialog show @a { \
       "type": "minecraft:boolean", \
       "key": "enableBossbar", \
       "label": { \
-        "text": "Enable Tracking Bar" \
+        "text": "Enable Time Tracking Bar" \
       }, \
       "initial": $(enableBossbar) \
     } \
@@ -163,6 +191,8 @@ $dialog show @a { \
         "type": "minecraft:dynamic/run_command", \
         "template": "function bw:gui/helper/save_config  {borderStartTime: \u0024(borderStartTime), \
                                                           borderAdvanceDelay: \u0024(borderAdvanceDelay), \
+                                                          borderAdvanceDuration: \u0024(borderAdvanceDuration), \
+                                                          borderAdvanceSize: \u0024(borderAdvanceSize), \
                                                           borderMinSize: \u0024(borderMinSize), \
                                                           respawnDelayNormal: \u0024(respawnDelayNormal), \
                                                           respawnDelayBanished: \u0024(respawnDelayBanished), \
@@ -173,7 +203,8 @@ $dialog show @a { \
                                                           firstEmerald: \u0024(firstEmerald), \
                                                           doubleJumpEnabled: \u0024(doubleJumpEnabled), \
                                                           persistentItems: \u0024(persistentItems), \
-                                                          enableBossbar: \u0024(enableBossbar)}" \
+                                                          enableBossbar: \u0024(enableBossbar), \
+                                                          hardcoreLever: \u0024(hardcoreLever)}" \
       } \
     } \
   ] \
