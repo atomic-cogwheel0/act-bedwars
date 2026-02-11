@@ -25,5 +25,8 @@
         "gameplay/monsters_burn": false,
         "gameplay/piglins_zombify": false,
         "gameplay/water_evaporates": false
-    }
+    },
+    
+    "has_fixed_time": false,
+    "timelines": "#minecraft:in_overworld"
 }
