@@ -25,6 +25,6 @@ schedule function bw:tell_game_time 1t replace
 
 scoreboard objectives setdisplay sidebar wins
 
-worldborder set 240
+execute in bw:bedwars run worldborder set 240
 
 bossbar set bw:border_bar visible false

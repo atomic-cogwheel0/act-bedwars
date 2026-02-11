@@ -1,1 +1,1 @@
-$worldborder add -$(borderAdvanceSize) $(borderAdvanceDuration)
+$execute in bw:bedwars run worldborder add -$(borderAdvanceSize) $(borderAdvanceDuration)s

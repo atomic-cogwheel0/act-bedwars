@@ -1,7 +1,7 @@
 time set midnight
 function bw:air_fills/fills_air_full
 
-execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+execute in bw:bedwars run fillbiome -125 -5 -125 124 139 124 bw:peaceful_islands
 
 place template moon_base:emerald -24 37 -24
 place template moon_base:cluster -8 60 -8

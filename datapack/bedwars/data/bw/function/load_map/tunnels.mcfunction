@@ -1,6 +1,6 @@
 function bw:stone_fills/fills_stone_full
 
-execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+execute in bw:bedwars run fillbiome -125 -5 -125 124 139 124 bw:peaceful_islands
 
 fill 5 1 -120 -5 28 119 air
 fill 5 28 -120 -5 28 119 stone

@@ -4,12 +4,14 @@
     "downfall": 0.4,
     "has_precipitation": false,
     "effects": {
-        "water_color": 4159204
+        "water_color": 6237978,
+        "foliage_color": 3879474,
+        "grass_color": 11181463
     },
     "attributes": {
-        "visual/sky_color": 7907327,
-        "visual/fog_color": 12638463,
-        "visual/water_fog_color": 329011
+        "visual/sky_color": 7493972,
+        "visual/fog_color": 3551536,
+        "visual/water_fog_color": 5583394
     },
     "spawners": {  
     },

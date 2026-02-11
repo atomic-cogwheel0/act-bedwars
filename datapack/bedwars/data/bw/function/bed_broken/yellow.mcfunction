@@ -6,7 +6,9 @@ execute unless entity @a[scores={yellowBedsBroken=1..}] run tellraw @a[predicate
 
 execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] as @a[predicate=bw:in_game] at @s run playsound entity.ghast.warn ambient @s
 execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] run scoreboard players set Yellow bedBroken 1
+
 execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] at @e[tag=YellowBed] run setblock ~ ~ ~ end_portal_frame
+execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] at @e[tag=YellowBed] run particle dragon_breath ~-.5 ~ ~-.5 .5 1 .5 .2 20 normal @a[predicate=bw:in_bedwars]
 
 execute unless entity @a[scores={yellowBedsBroken=1..},team=yellow] run give @a[team=yellow] trial_key
 

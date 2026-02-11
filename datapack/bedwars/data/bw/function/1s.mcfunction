@@ -100,10 +100,10 @@ execute if score gameOn game matches 1 as @a[predicate=bw:in_game] run execute i
 
 scoreboard players remove @a deathCalc 1
 
-execute as @a[team=!,predicate=bw:in_game] at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
+#execute as @a[team=!,predicate=bw:in_game] at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
 # border handling
-execute store result score borderSize game run worldborder get
+execute store result score borderSize game in bw:bedwars run worldborder get
 execute if score gameOn game matches 1 run scoreboard players add border game 1
 
 execute if score border game >= borderStartTime config if score borderStarted game matches 0 run function bw:border/start
@@ -117,6 +117,13 @@ execute if score borderStarted game matches 1 run scoreboard players operation i
 # update display
 scoreboard players operation in GameBar -= border game
 scoreboard players operation size GameBar = borderSize game
+
+# refresh bossbar
+execute unless score borderStarted game matches 1 run scoreboard players operation border bossbarCalc = borderStartTime config
+execute unless score borderStarted game matches 1 run execute store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= border game
+execute if score borderStarted game matches 1 run scoreboard players operation border bossbarCalc = borderSize game
+execute if score borderStarted game matches 1 unless score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= bedBreak game
+execute if score borderStarted game matches 1 if score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= borderMinSize config
 
 # player counting, victory
 scoreboard players set playerCount game 0
@@ -216,10 +223,3 @@ execute as @e[type=happy_ghast,predicate=bw:in_bedwars,nbt={equipment:{body:{cou
 
 # refresh map name display
 function bw:map_update
-
-# refresh bossbar
-execute unless score borderStarted game matches 1 run scoreboard players operation border bossbarCalc = borderStartTime config
-execute unless score borderStarted game matches 1 run execute store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= border game
-execute if score borderStarted game matches 1 store result score border bossbarCalc run worldborder get
-execute if score borderStarted game matches 1 unless score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= bedBreak game
-execute if score borderStarted game matches 1 if score deathMatch game matches 1 store result bossbar bw:border_bar value run scoreboard players operation border bossbarCalc -= borderMinSize config

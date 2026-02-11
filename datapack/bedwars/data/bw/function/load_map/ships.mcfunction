@@ -1,6 +1,6 @@
 function bw:air_fills/fills_air_full
 
-execute in bw:bedwars run fillbiome -120 -5 -120 119 159 119 bw:deadly_waters
+execute in bw:bedwars run fillbiome -125 -5 -125 124 139 124 bw:deadly_waters
 
 fill -120 1 -120 119 16 119 water replace air
 fill -120 1 -120 119 1 119 sand

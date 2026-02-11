@@ -1,4 +1,4 @@
 scoreboard players set safeMode game 0
 scoreboard players set devMode game 1
-gamerule sendCommandFeedback true
-gamerule logAdminCommands true
+gamerule send_command_feedback true
+gamerule log_admin_commands true

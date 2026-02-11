@@ -149,38 +149,40 @@ team modify green prefix "[green] "
 team modify white suffix " (ghost)"
 say "teams set"
 
+gamerule max_block_modifications 2147483647
+
 execute in bw:bedwars run forceload add -128 -128 127 127
 execute in bw:lobby run forceload add -128 -128 127 127
 
-execute in bw:lobby run fillbiome -120 -5 -120 119 159 119 bw:peaceful_islands
+execute in bw:lobby run fillbiome -125 -64 -125 124 100 124 bw:peaceful_islands
 
 place template bw:lobby1 -16 -55 -11
 place template bw:lobby2 12 -55 -11 none none 1 0 strict
 
 execute if score noTP config matches 0 in bw:lobby at @e[type=armor_stand,tag=Lobby,limit=1] run setworldspawn ~ ~ ~
 
-gamerule commandModificationBlockLimit 10000000
-
-gamerule announceAdvancements false
-gamerule commandBlockOutput false
-gamerule logAdminCommands false
-gamerule sendCommandFeedback false
-gamerule doDaylightCycle false
-gamerule doWeatherCycle false
-gamerule doImmediateRespawn true
-gamerule doInsomnia false
-gamerule doLimitedCrafting true
-gamerule doMobLoot false
-gamerule doMobSpawning false
-gamerule doPatrolSpawning false
-gamerule doTraderSpawning false
-gamerule doWardenSpawning false
-gamerule keepInventory true
-gamerule randomTickSpeed 0
-gamerule locatorBar false
+gamerule show_advancement_messages false
+gamerule command_block_output false
+gamerule log_admin_commands false
+gamerule send_command_feedback false
+gamerule advance_time false
+gamerule advance_weather false
+gamerule immediate_respawn true
+gamerule limited_crafting true
+gamerule mob_drops false
+gamerule spawn_phantoms false
+gamerule spawn_mobs false
+gamerule spawn_patrols false
+gamerule spawn_wardens false
+gamerule spawn_wandering_traders false
+gamerule keep_inventory true
+gamerule random_tick_speed 0
+gamerule locator_bar false
 
 data modify storage world created set value 1
 
 say "world setup done"
+
+tellraw @s {atlas:"items",sprite:"item/diamond"}
 
 function bw:1s
