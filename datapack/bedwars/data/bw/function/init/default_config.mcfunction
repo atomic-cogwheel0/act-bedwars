@@ -18,3 +18,4 @@ scoreboard players set doubleJumpEnabled config 1
 scoreboard players set persistentItems config 1
 
 scoreboard players set enableBossbar config 1
+scoreboard players set forceNoon config 0

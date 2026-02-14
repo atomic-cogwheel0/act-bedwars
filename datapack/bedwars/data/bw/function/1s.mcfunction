@@ -60,7 +60,7 @@ scoreboard players add @e[type=snowball,tag=bridge] bridge 1
 execute as @e[type=snowball,predicate=bw:in_bedwars,tag=bridge,scores={bridge=2..}] run function bw:entities/bridge_egg/fill
 
 # food supply
-execute as @a[team=!,team=!white,predicate=bw:in_bedwars] if score gameOn game matches 1 unless entity @s[nbt={Inventory:[{Slot:8b}]}] run item replace entity @s hotbar.8 with beetroot[item_name={translate:"item.bw.food"},food={nutrition:6,saturation:2,can_always_eat:true}]
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] if score gameOn game matches 1 unless entity @s[nbt={Inventory:[{Slot:8b}]}] run item replace entity @s hotbar.8 with beetroot[item_name="Radish",food={nutrition:6,saturation:2,can_always_eat:true}]
 
 # spawn protection
 execute as @a[team=!,team=!white,predicate=bw:in_game] if score gameOn game matches 1 if score @s deathCalc matches 1.. run gamemode adventure @s

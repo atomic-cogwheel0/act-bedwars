@@ -37,6 +37,8 @@ execute if score map game matches 7 in bw:bedwars run function bw:load_map/tree
 execute if score map game matches 8 in bw:bedwars run function bw:load_map/crypt
 execute if score map game matches 9 in bw:bedwars run function bw:load_map/graveyard
 
+execute if score forceNoon config matches 1 run time set noon
+
 execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @a[predicate=bw:in_game] ~ ~ ~
 
 #execute as @a[team=white] run team leave @s

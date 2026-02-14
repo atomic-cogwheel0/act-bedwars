@@ -179,6 +179,8 @@ gamerule keep_inventory true
 gamerule random_tick_speed 0
 gamerule locator_bar false
 
+gamerule pvp true
+
 data modify storage world created set value 1
 
 say "world setup done"

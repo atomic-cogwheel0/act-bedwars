@@ -169,6 +169,14 @@ $dialog show @s { \
         "text": "Enable Time Tracking Bar" \
       }, \
       "initial": $(enableBossbar) \
+    }, \
+    { \
+      "type": "minecraft:boolean", \
+      "key": "forceNoon", \
+      "label": { \
+        "text": "Always Noon" \
+      }, \
+      "initial": $(forceNoon) \
     } \
   ], \
   "can_close_with_escape": true, \
@@ -204,6 +212,7 @@ $dialog show @s { \
                                                           doubleJumpEnabled: \u0024(doubleJumpEnabled), \
                                                           persistentItems: \u0024(persistentItems), \
                                                           enableBossbar: \u0024(enableBossbar), \
+                                                          forceNoon: \u0024(forceNoon), \
                                                           hardcoreLever: \u0024(hardcoreLever)}" \
       } \
     } \

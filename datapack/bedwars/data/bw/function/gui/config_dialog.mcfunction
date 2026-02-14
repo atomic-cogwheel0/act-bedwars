@@ -14,6 +14,7 @@ execute store result storage bw:config_macro this.firstEmerald int 1 run scorebo
 execute store result storage bw:config_macro this.persistentItems byte 1 run scoreboard players get persistentItems config
 execute store result storage bw:config_macro this.doubleJumpEnabled byte 1 run scoreboard players get doubleJumpEnabled config
 execute store result storage bw:config_macro this.enableBossbar byte 1 run scoreboard players get enableBossbar config
+execute store result storage bw:config_macro this.forceNoon byte 1 run scoreboard players get forceNoon config
 
 execute store result storage bw:config_macro this.hardcoreLever byte 1 run scoreboard players get hardcoreLever game
 
