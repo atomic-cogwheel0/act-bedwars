@@ -20,6 +20,11 @@ team leave @a[team=blue,predicate=!bw:in_game]
 team leave @a[team=green,predicate=!bw:in_game]
 team leave @a[team=yellow,predicate=!bw:in_game]
 
+tag @a[team=red] add started_as_red
+tag @a[team=blue] add started_as_blue
+tag @a[team=green] add started_as_green
+tag @a[team=yellow] add started_as_yellow
+
 # clear the arena from entities
 kill @e[type=!player,predicate=bw:in_bedwars]
 execute in bw:bedwars run fill -120 -1 -120 119 -1 119 air replace obsidian

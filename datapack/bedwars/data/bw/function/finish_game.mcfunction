@@ -17,6 +17,11 @@ team empty yellow
 team empty green
 team empty blue
 
+tag @a remove started_as_red
+tag @a remove started_as_blue
+tag @a remove started_as_green
+tag @a remove started_as_yellow
+
 clear @a[team=!,predicate=bw:in_game]
 effect clear @a[team=!,predicate=bw:in_game]
 
