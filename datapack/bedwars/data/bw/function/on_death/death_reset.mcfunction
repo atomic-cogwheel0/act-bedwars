@@ -5,22 +5,22 @@ execute if score gameOn game matches 1 as @s[team=!,scores={banishing=1..}] run 
 
 execute if score Green bedBroken matches 1 run execute as @s[team=green] run scoreboard players remove alive game 1
 #execute if score Green bedBroken matches 1 run execute as @s[team=green] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run spawnpoint @s ~ ~ ~
-execute if score Green bedBroken matches 1 run execute as @s[team=green] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
+execute if score Green bedBroken matches 1 run execute as @s[team=green] run execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
 execute if score Green bedBroken matches 1 run execute as @s[team=green] run team join white @s
 
 execute if score Red bedBroken matches 1 run execute as @s[team=red] run scoreboard players remove alive game 1
 #execute if score Red bedBroken matches 1 run execute as @s[team=red] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run spawnpoint @s ~ ~ ~
-execute if score Red bedBroken matches 1 run execute as @s[team=red] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
+execute if score Red bedBroken matches 1 run execute as @s[team=red] run execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
 execute if score Red bedBroken matches 1 run execute as @s[team=red] run team join white @s
 
 execute if score Blue bedBroken matches 1 run execute as @s[team=blue] run scoreboard players remove alive game 1
 #execute if score Blue bedBroken matches 1 run execute as @s[team=blue] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run spawnpoint @s ~ ~ ~
-execute if score Blue bedBroken matches 1 run execute as @s[team=blue] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
+execute if score Blue bedBroken matches 1 run execute as @s[team=blue] run execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
 execute if score Blue bedBroken matches 1 run execute as @s[team=blue] run team join white @s
 
 execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run scoreboard players remove alive game 1
 #execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run spawnpoint @s ~ ~ ~
-execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run execute at @e[type=armor_stand,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
+execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=DeadSpawn,limit=1] run tp @s ~ ~ ~
 execute if score Yellow bedBroken matches 1 run execute as @s[team=yellow] run team join white @s
 
 execute as @s[team=white] run gamemode spectator @s

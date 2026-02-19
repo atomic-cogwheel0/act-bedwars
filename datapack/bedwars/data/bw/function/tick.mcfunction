@@ -14,7 +14,8 @@ scoreboard players remove @a[scores={banishing=1..},predicate=!bw:effect/unluck]
 
 # Kills for out-of-map players
 #execute if score gameOn game matches 1 as @e[type=player,x=-160,y=1,z=-160,dx=320,dy=3,dz=320,team=!] run kill @s[team=!white]
-execute in bw:lobby as @e[type=player,x=-160,y=-192,z=-160,dx=320,dy=64,dz=320,predicate=bw:in_game] run damage @s 2000 out_of_world
+execute in bw:lobby as @e[type=player,x=-160,y=-192,z=-160,dx=320,dy=64,dz=320,predicate=bw:in_lobby] if score @s deathCalc matches ..-1 run damage @s 2000 out_of_world
+execute in bw:lobby as @e[type=player,x=-160,y=-192,z=-160,dx=320,dy=64,dz=320,predicate=bw:in_lobby] if score @s deathCalc matches 0.. at @s run tp ~ ~64 ~
 
 # fell down from the map
 execute in bw:bedwars if score gameOn game matches 1 as @e[type=player,team=!white,team=!,x=-160,y=1,z=-160,dx=320,dy=3,dz=320,predicate=bw:in_bedwars] run damage @s 2000 bw:fell_off
@@ -27,10 +28,10 @@ execute in bw:bedwars if score map game matches 1 if score gameOn game matches 1
 execute as @e[type=arrow,predicate=bw:in_bedwars] run function bw:arrow/handler
 
 # Bed break detection
-execute at @e[type=armor_stand,tag=YellowBed] unless block ~ ~ ~ yellow_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/yellow
-execute at @e[type=armor_stand,tag=RedBed] unless block ~ ~ ~ red_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/red
-execute at @e[type=armor_stand,tag=BlueBed] unless block ~ ~ ~ blue_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/blue
-execute at @e[type=armor_stand,tag=GreenBed] unless block ~ ~ ~ green_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/green
+execute at @e[type=armor_stand,tag=YellowBed,predicate=bw:in_bedwars] unless block ~ ~ ~ yellow_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/yellow
+execute at @e[type=armor_stand,tag=RedBed,predicate=bw:in_bedwars] unless block ~ ~ ~ red_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/red
+execute at @e[type=armor_stand,tag=BlueBed,predicate=bw:in_bedwars] unless block ~ ~ ~ blue_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/blue
+execute at @e[type=armor_stand,tag=GreenBed,predicate=bw:in_bedwars] unless block ~ ~ ~ green_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/green
 
 # Bridge egg
 tag @e[type=egg,tag=!bridge_spawner,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] add bridge_spawner
@@ -54,7 +55,7 @@ tag @a[tag=!joined] add joined
 # enable the trigger for everyone :)
 scoreboard players enable @a[scores={leave=1..}] tpToBw
 
-execute unless score noTP config matches 1 if score gameOn game matches 0 as @a[scores={leave=1..}] run execute at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 270 0
+execute unless score noTP config matches 1 if score gameOn game matches 0 as @a[scores={leave=1..}] run execute at @e[type=armor_stand,tag=Lobby,limit=1,predicate=bw:in_lobby] run tp @s ~ ~ ~ 270 0
 execute unless score noTP config matches 1 as @a[scores={leave=1..},team=] run gamemode adventure @s
 execute unless score noTP config matches 1 as @a[scores={leave=1..},team=] run team join white
 
@@ -64,8 +65,8 @@ execute if score noTP config matches 1 as @a[scores={leave=1..}] run tellraw @s 
 scoreboard players set @a[scores={leave=1..}] leave 0
 
 # Teleport to Lobby dialog trigger
-execute if score gameOn game matches 0 as @a[scores={tpToBw=1}] at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 270 0
-execute if score gameOn game matches 1 as @a[scores={tpToBw=1},predicate=!bw:in_bedwars] at @e[type=armor_stand,tag=Lobby,limit=1] run tp @s ~ ~ ~ 270 0
+execute if score gameOn game matches 0 as @a[scores={tpToBw=1}] at @e[type=armor_stand,tag=Lobby,limit=1,predicate=bw:in_lobby] run tp @s ~ ~ ~ 270 0
+execute if score gameOn game matches 1 as @a[scores={tpToBw=1},predicate=!bw:in_bedwars] at @e[type=armor_stand,tag=Lobby,limit=1,predicate=bw:in_lobby] run tp @s ~ ~ ~ 270 0
 execute if score gameOn game matches 1 as @a[scores={tpToBw=1},predicate=bw:in_bedwars] run tellraw @s {text: "Game running! Lobby unavailable for you",color:"red"}
 gamemode adventure @a[scores={tpToBw=1}]
 team join white @a[scores={tpToBw=1}]

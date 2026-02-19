@@ -73,23 +73,23 @@ execute as @a[predicate=bw:in_lobby] run effect give @s resistance 2 42 true
 execute if score gameOn game matches 0 as @a[predicate=bw:in_lobby] run effect give @s saturation 2 42 true
 
 # upgrades
-execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade1 run clear @s sugar 0
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade1 run clear @s sugar[custom_data={upgrade:1b}] 0
 execute as @a run execute if score @s upgrade1 matches 1.. run function bw:upgrade/island1
 
-execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade2 run clear @s ink_sac 0
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade2 run clear @s ink_sac[custom_data={upgrade:1b}] 0
 execute as @a run execute if score @s upgrade2 matches 1.. run function bw:upgrade/island2
 
-execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade3 run clear @s glow_ink_sac 0
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s upgrade3 run clear @s glow_ink_sac[custom_data={upgrade:1b}] 0
 execute as @a run execute if score @s upgrade3 matches 1.. run function bw:upgrade/island3
 
-execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s alarmBought run clear @s nether_star
+execute as @a[team=!,team=!white,predicate=bw:in_bedwars] run execute store result score @s alarmBought run clear @s nether_star[custom_data={upgrade:1b}]
 execute as @a run execute if score @s alarmBought matches 1.. run function bw:upgrade/bed_alarm
 
 # respawning players with a delay
-execute as @a[team=red] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=RedSpawn, limit=1]
-execute as @a[team=blue] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=BlueSpawn, limit=1]
-execute as @a[team=green] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=GreenSpawn, limit=1]
-execute as @a[team=yellow] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=YellowSpawn, limit=1]
+execute as @a[team=red] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=RedSpawn, limit=1, predicate=bw:in_bedwars]
+execute as @a[team=blue] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=BlueSpawn, limit=1, predicate=bw:in_bedwars]
+execute as @a[team=green] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=GreenSpawn, limit=1, predicate=bw:in_bedwars]
+execute as @a[team=yellow] if score @s deathCalc matches 0 run tp @s @e[type=armor_stand, tag=YellowSpawn, limit=1, predicate=bw:in_bedwars]
 
 execute as @a[team=!,team=!white] if score @s deathCalc matches 1.. at @s run playsound entity.experience_orb.pickup ambient @s ~ ~ ~ 0.3
 execute as @a[team=!,team=!white] if score @s deathCalc matches 1.. run title @s actionbar [{text:"Respawning in "},{score:{name:"@s",objective:"deathCalc"},color:"yellow"},{text:"..."}]
@@ -100,7 +100,7 @@ execute if score gameOn game matches 1 as @a[predicate=bw:in_game] run execute i
 
 scoreboard players remove @a deathCalc 1
 
-#execute as @a[team=!,predicate=bw:in_game] at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
+#execute as @a[team=!,predicate=bw:in_game] at @e[type=armor_stand,predicate=bw:in_lobby,tag=Lobby,limit=1] run spawnpoint @s ~ ~ ~
 
 # border handling
 execute store result score borderSize game in bw:bedwars run worldborder get
@@ -160,10 +160,10 @@ execute if entity @a[team=yellow] run scoreboard players operation Yellow GameBa
 scoreboard players operation Alive GameBar = alive game
 
 # disable the closest diamond spawner to empty teams
-execute at @e[tag=RedSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,limit=1] if score inred game matches 0 run scoreboard players set @s diamond 0
-execute at @e[tag=BlueSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,limit=1] if score inblue game matches 0 run scoreboard players set @s diamond 0
-execute at @e[tag=GreenSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,limit=1] if score ingreen game matches 0 run scoreboard players set @s diamond 0
-execute at @e[tag=YellowSpawn] as @e[type=armor_stand,tag=DiamondS,sort=nearest,limit=1] if score inyellow game matches 0 run scoreboard players set @s diamond 0
+execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=RedSpawn] as @n[type=armor_stand,tag=DiamondS] if score inred game matches 0 run scoreboard players set @s diamond 0
+execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=BlueSpawn] as @n[type=armor_stand,tag=DiamondS] if score inblue game matches 0 run scoreboard players set @s diamond 0
+execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=GreenSpawn] as @n[type=armor_stand,tag=DiamondS] if score ingreen game matches 0 run scoreboard players set @s diamond 0
+execute at @e[type=armor_stand,predicate=bw:in_bedwars,tag=YellowSpawn] as @n[type=armor_stand,tag=DiamondS] if score inyellow game matches 0 run scoreboard players set @s diamond 0
 
 # the Alarm that you can buy at the exotic trader
 execute if score redAlarm game matches 1.. as @a[team=!red] at @s if entity @e[tag=RedBed,distance=..10,limit=1] run tellraw @a[team=red] {text:"Your bed is under attack!",color:"dark_purple"}
@@ -177,6 +177,12 @@ execute if score greenAlarm game matches 1.. as @a[team=!green] at @s if entity 
 
 execute if score yellowAlarm game matches 1.. as @a[team=!yellow] at @s if entity @e[tag=YellowBed,distance=..10,limit=1] run tellraw @a[team=yellow] {text:"Your bed is under attack!",color:"dark_purple"}
 execute if score yellowAlarm game matches 1.. as @a[team=!yellow] at @s if entity @e[tag=YellowBed,distance=..10,limit=1] run scoreboard players remove yellowAlarm game 1
+
+# Hitman entities
+execute as @e[type=#bw:potential_protector,tag=protector,team=red] at @s run data modify entity @s angry_at set from entity @p[team=!,team=!white,team=!red] UUID 
+execute as @e[type=#bw:potential_protector,tag=protector,team=blue] at @s run data modify entity @s angry_at set from entity @p[team=!,team=!white,team=!blue] UUID
+execute as @e[type=#bw:potential_protector,tag=protector,team=green] at @s run data modify entity @s angry_at set from entity @p[team=!,team=!white,team=!green] UUID 
+execute as @e[type=#bw:potential_protector,tag=protector,team=yellow] at @s run data modify entity @s angry_at set from entity @p[team=!,team=!white,team=!yellow] UUID 
 
 # health boost
 execute as @a store result score @s hpboost run clear @s pink_dye[custom_data={hpboost:1b}] 0

@@ -5,7 +5,7 @@ execute as @a[team=!,predicate=bw:in_game] run give @s[team=!white] trial_key
 
 bossbar set bw:border_bar name "Beds break soon..."
 bossbar set bw:border_bar color yellow
-execute store result score border bossbarCalc run worldborder get
+execute store result score border bossbarCalc in bw:bedwars run worldborder get
 execute store result bossbar bw:border_bar max run scoreboard players operation border bossbarCalc -= bedBreak game
 
 function bw:border/advance

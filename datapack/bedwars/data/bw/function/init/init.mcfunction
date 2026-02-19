@@ -110,12 +110,12 @@ team modify blue color blue
 team modify red color red
 team modify yellow color yellow
 team modify green color green
-say "team color set"
 
 team modify blue friendlyFire false
 team modify red friendlyFire false
 team modify yellow friendlyFire false
 team modify green friendlyFire false
+say "teams configured"
 
 team modify CurrentMap suffix ": None"
 team join CurrentMap Map

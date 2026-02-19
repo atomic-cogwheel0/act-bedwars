@@ -34,11 +34,11 @@ execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes appe
 
 execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"iron_ingot", count:8}, sell:{id:"cooked_porkchop", count:1}}
 
-execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:24}, sell:{id:"sugar", count:1, components:{custom_name:{text:"Iron Upgrade Key",italic:false,color:"gray"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["+",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}]]}}}
+execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:24}, sell:{id:"sugar", count:1, components:{custom_data:{upgrade:1b}, custom_name:{text:"Iron Upgrade Key",italic:false,color:"gray"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["+",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}]]}}}
 
-execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:48}, buyB:{id:"diamond", count:8}, sell:{id:"ink_sac", count:1, components:{custom_name:{text:"Diamond Upgrade Key",italic:false,color:"aqua"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["++",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}],["+",{text:"①",font:"bw:ore_font",italic:false,color:"white"}]]}}}
+execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"iron_ingot", count:48}, buyB:{id:"diamond", count:8}, sell:{id:"ink_sac", count:1, components:{custom_data:{upgrade:1b}, custom_name:{text:"Diamond Upgrade Key",italic:false,color:"aqua"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["++",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}],["+",{text:"①",font:"bw:ore_font",italic:false,color:"white"}]]}}}
 
-execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"diamond", count:24}, sell:{id:"glow_ink_sac", count:1, components:{custom_name:{text:"Emerald Upgrade Key",italic:false,color:"green"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["++",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}],["++",{text:"①",font:"bw:ore_font",italic:false,color:"white"}],["+",{text:"②",font:"bw:ore_font",italic:false,color:"white"}]]}}}
+execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1, buy:{id:"diamond", count:24}, sell:{id:"glow_ink_sac", count:1, components:{custom_data:{upgrade:1b}, custom_name:{text:"Emerald Upgrade Key",italic:false,color:"green"}, custom_model_data:{flags:[true]}, lore:["Drops after upgrade:",["++",{text:"⓪",font:"bw:ore_font",italic:false,color:"white"}],["++",{text:"①",font:"bw:ore_font",italic:false,color:"white"}],["+",{text:"②",font:"bw:ore_font",italic:false,color:"white"}]]}}}
 
 execute as @e[tag=upgraded_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"emerald", count:4}, sell:{id:"obsidian", count:4}}
 
@@ -125,7 +125,7 @@ execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append
 
 execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:16}, buyB:{id:"emerald", count:24}, sell:{id:"crossbow", count:1, components:{max_damage:151, enchantments:{"multishot":1}, custom_name:{text:"Exotic Crossbow",italic:false}}}}
 
-execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:6}, sell:{id:"nether_star", count:1, components:{custom_name:{text:"Bed Alarm",italic:false}}}}
+execute as @e[tag=exotic_trader] run data modify entity @s Offers.Recipes append value {maxUses:1600000, buy:{id:"gold_ingot", count:6}, sell:{id:"nether_star", count:1, components:{custom_data:{upgrade:1b}, custom_name:{text:"Bed Alarm",italic:false}}}}
 
 
 

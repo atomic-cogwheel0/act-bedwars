@@ -41,10 +41,11 @@ execute if score map game matches 6 in bw:bedwars run function bw:load_map/tunne
 execute if score map game matches 7 in bw:bedwars run function bw:load_map/tree
 execute if score map game matches 8 in bw:bedwars run function bw:load_map/crypt
 execute if score map game matches 9 in bw:bedwars run function bw:load_map/graveyard
+execute if score map game matches 10 in bw:bedwars run function bw:load_map/worlds
 
 execute if score forceNoon config matches 1 run time set noon
 
-execute at @e[type=armor_stand,tag=Lobby,limit=1] run spawnpoint @a[predicate=bw:in_game] ~ ~ ~
+execute at @e[type=armor_stand,predicate=bw:in_lobby,tag=Lobby,limit=1] run spawnpoint @a[predicate=bw:in_game] ~ ~ ~
 
 #execute as @a[team=white] run team leave @s
 
@@ -142,14 +143,14 @@ execute if score enableBossbar config matches 1 run bossbar set bw:border_bar vi
 bossbar set bw:border_bar players @a[predicate=bw:in_game]
 
 # wither skeletons don't fit on map 2
-execute unless score map game matches 2 at @e[type=armor_stand, tag=EmeraldS] run summon wither_skeleton ~ ~ ~ {equipment:{mainhand:{id:"bow",count:1b,components:{enchantments:{"mending":1,"punch":1}}},head:{id:"iron_helmet",count:1}},PersistenceRequired:1b}
-execute if score map game matches 2 at @e[type=armor_stand, tag=EmeraldS] run summon skeleton ~ ~ ~ {equipment:{mainhand:{id:"bow",count:1b,components:{enchantments:{"mending":1,"punch":1,"flame":1}}},head:{id:"iron_helmet",count:1}},PersistenceRequired:1b}
-execute at @e[type=armor_stand, tag=EmeraldS] run summon skeleton ~ ~ ~ {equipment:{mainhand:{id:"iron_sword",count:1b},head:{id:"iron_helmet",count:1}},PersistenceRequired:1b}
+execute unless score map game matches 2 at @e[type=armor_stand, tag=EmeraldS, predicate=bw:in_bedwars] run summon wither_skeleton ~ ~ ~ {equipment:{mainhand:{id:"bow",count:1b,components:{enchantments:{"mending":1,"punch":1}}},head:{id:"iron_helmet",count:1}},PersistenceRequired:1b}
+execute if score map game matches 2 at @e[type=armor_stand, tag=EmeraldS, predicate=bw:in_bedwars] run summon skeleton ~ ~ ~ {equipment:{mainhand:{id:"bow",count:1b,components:{enchantments:{"mending":1,"punch":1,"flame":1}}},head:{id:"iron_helmet",count:1}},PersistenceRequired:1b}
+execute at @e[type=armor_stand, tag=EmeraldS, predicate=bw:in_bedwars] run summon skeleton ~ ~ ~ {equipment:{mainhand:{id:"iron_sword",count:1b},head:{id:"iron_helmet",count:1}},PersistenceRequired:1b}
 
-tp @a[team=red] @e[type=armor_stand,tag=RedSpawn,limit=1] 
-tp @a[team=blue] @e[type=armor_stand,tag=BlueSpawn,limit=1] 
-tp @a[team=green] @e[type=armor_stand,tag=GreenSpawn,limit=1] 
-tp @a[team=yellow] @e[type=armor_stand,tag=YellowSpawn,limit=1]
+tp @a[team=red] @e[type=armor_stand,tag=RedSpawn,limit=1,predicate=bw:in_bedwars] 
+tp @a[team=blue] @e[type=armor_stand,tag=BlueSpawn,limit=1,predicate=bw:in_bedwars] 
+tp @a[team=green] @e[type=armor_stand,tag=GreenSpawn,limit=1,predicate=bw:in_bedwars] 
+tp @a[team=yellow] @e[type=armor_stand,tag=YellowSpawn,limit=1,predicate=bw:in_bedwars]
 
 scoreboard players set @s cyanide 0
 xp set @a 0 levels
