@@ -1,6 +1,6 @@
 function bw:air_fills/fills_air_full
 
-#execute in bw:bedwars run fillbiome -125 -5 -125 124 139 124 bw:old_islands
+execute in bw:bedwars run fillbiome -125 -5 -125 124 139 124 bw:old_islands
 
 place template worlds:emerald_island -19 47 -19
 
