@@ -50,6 +50,8 @@ execute at @e[type=armor_stand,predicate=bw:in_lobby,tag=Lobby,limit=1] run spaw
 #execute as @a[team=white] run team leave @s
 
 # spawn proofing
+execute at @e[type=armor_stand,predicate=bw:in_bedwars] unless entity @s[tag=!RedSpawn,tag=!GreenSpawn,tag=!BlueSpawn,tag=!YellowSpawn] run setblock ~ ~-2 ~ bedrock
+
 execute at @e[type=armor_stand,tag=RedSpawn] run setblock ~ ~-2 ~ bedrock
 execute at @e[type=armor_stand,tag=GreenSpawn] run setblock ~ ~-2 ~ bedrock
 execute at @e[type=armor_stand,tag=BlueSpawn] run setblock ~ ~-2 ~ bedrock

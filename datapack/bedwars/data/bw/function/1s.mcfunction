@@ -192,6 +192,14 @@ execute if score hardcore game matches 1 as @a[predicate=bw:in_game] run functio
 execute as @a[predicate=!bw:in_game] run function bw:hp/reset
 #execute if score gameOn game matches 0 as @a[predicate=bw:in_game] run function bw:hp/reset
 
+# fake blocks
+execute at @e[type=armor_stand,tag=fake_emerald_ore] align xyz run summon block_display ~ ~ ~ {Tags:["fake_emerald_ore","fake_block"],block_state:{Name:"emerald_ore"},brightness:{block:0,sky:15},view_range:40,transformation:{left_rotation:{angle:0,axis:[0,0,0]},right_rotation:{angle:0,axis:[0,0,0]},scale:[1.001,1.001,1.001],translation:[-0.0005,-0.0005,-0.0005]}}
+execute at @e[type=armor_stand,tag=fake_diamond_ore] align xyz run summon block_display ~ ~ ~ {Tags:["fake_diamond_ore","fake_block"],block_state:{Name:"diamond_ore"},brightness:{block:0,sky:15},view_range:40,transformation:{left_rotation:{angle:0,axis:[0,0,0]},right_rotation:{angle:0,axis:[0,0,0]},scale:[1.001,1.001,1.001],translation:[-0.0005,-0.0005,-0.0005]}}
+execute at @e[type=armor_stand,tag=fake_block] run setblock ~ ~ ~ stone
+kill @e[type=armor_stand,tag=fake_block]
+
+execute as @e[type=block_display,tag=fake_block] at @s if block ~ ~ ~ #air run kill @s
+
 # potions
 # functions should run once when potionBig/Small changes (tracked in potion*Applied)
 

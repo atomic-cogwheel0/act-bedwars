@@ -57,6 +57,7 @@ scoreboard objectives add redBedsBroken minecraft.mined:minecraft.red_bed
 scoreboard objectives add leave minecraft.custom:leave_game
 scoreboard objectives add parkourMessage dummy
 
+scoreboard objectives add display_light dummy
 scoreboard objectives add idk dummy
 
 scoreboard objectives add bedStandFacingDir dummy
@@ -159,7 +160,7 @@ execute in bw:lobby run fillbiome -125 -64 -125 124 100 124 bw:peaceful_islands
 place template bw:lobby1 -16 -55 -11
 place template bw:lobby2 12 -55 -11 none none 1 0 strict
 
-execute if score noTP config matches 0 in bw:lobby at @e[type=armor_stand,tag=Lobby,limit=1] run setworldspawn ~ ~ ~
+execute if score noTP config matches 0 in bw:lobby at @e[type=armor_stand,predicate=bw:in_lobby,tag=Lobby,limit=1] run setworldspawn ~ ~ ~
 
 gamerule show_advancement_messages false
 gamerule command_block_output false
@@ -181,10 +182,9 @@ gamerule locator_bar false
 
 gamerule pvp true
 
-data modify storage world created set value 1
+# this value increments when a new update requires a lobby reset/re-init
+data modify storage world created set value 2
 
 say "world setup done"
-
-tellraw @s {atlas:"items",sprite:"item/diamond"}
 
 function bw:1s

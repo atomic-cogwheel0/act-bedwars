@@ -1,0 +1,1 @@
+kill @e[type=!player,predicate=bw:in_game]

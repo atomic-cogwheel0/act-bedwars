@@ -33,6 +33,12 @@ execute at @e[type=armor_stand,tag=RedBed,predicate=bw:in_bedwars] unless block 
 execute at @e[type=armor_stand,tag=BlueBed,predicate=bw:in_bedwars] unless block ~ ~ ~ blue_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/blue
 execute at @e[type=armor_stand,tag=GreenBed,predicate=bw:in_bedwars] unless block ~ ~ ~ green_bed unless block ~ ~ ~ end_portal_frame run function bw:bed_broken/green
 
+# ensure players in other dims can't modify game behavior
+scoreboard players set @a[predicate=!bw:in_bedwars] redBedsBroken 0
+scoreboard players set @a[predicate=!bw:in_bedwars] blueBedsBroken 0
+scoreboard players set @a[predicate=!bw:in_bedwars] greenBedsBroken 0
+scoreboard players set @a[predicate=!bw:in_bedwars] yellowBedsBroken 0
+
 # Bridge egg
 tag @e[type=egg,tag=!bridge_spawner,nbt={Item:{components:{"minecraft:custom_data":{bridge:1b}}}}] add bridge_spawner
 execute as @e[type=egg,tag=bridge_spawner] at @s run function bw:entities/bridge_egg/tick

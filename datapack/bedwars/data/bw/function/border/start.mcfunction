@@ -1,4 +1,4 @@
-execute at @a run playsound entity.ender_dragon.ambient ambient @a ~ ~ ~
+execute as @a[predicate=bw:in_game] at @s run playsound entity.ender_dragon.ambient ambient @s ~ ~ ~
 scoreboard players set borderStarted game 1
 execute as @a[team=!,predicate=bw:in_game] run give @s[team=!white] crossbow[unbreakable={}]
 execute as @a[team=!,predicate=bw:in_game] run give @s[team=!white] trial_key
