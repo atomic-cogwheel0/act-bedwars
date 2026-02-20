@@ -150,6 +150,9 @@ team modify green prefix "[green] "
 team modify white suffix " (ghost)"
 say "teams set"
 
+# detect upgrading the world, remove armor stands & do other stuff
+execute if data storage world created run function bw:init/reset_for_upgrade
+
 gamerule max_block_modifications 2147483647
 
 execute in bw:bedwars run forceload add -128 -128 127 127
